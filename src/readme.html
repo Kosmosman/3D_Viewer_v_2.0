@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Инструкция к 3DViewer_v2.0</title>
+  <style>
+    html {
+      box-sizing: border-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: inherit;
+    }
+
+    body {
+      min-width: 320px;
+
+      font-family: "Roboto", sans-serif;
+      font-weight: 400;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1800px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .header {
+      margin-bottom: 50px;
+    }
+
+    .header_container {
+      padding: 15px 0;
+    }
+
+    .header_title {
+      margin: 0;
+      text-align: center;
+      font-size: 48px;
+    }
+
+    .section_title {
+      margin: 0;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .box_title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .content {
+      display: flex;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .actions_content {
+      justify-content: center;
+    }
+
+    .box {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container header_container">
+      <h1 style="text-align:center">Инструкция по использованию 3DViewer v2.0</h1>
+    </div>
+  </header>
+  <section class="usage">
+    <div class="container">
+      <h2 class="section_title">Использование:</h2>
+      <div class="usage_content content">
+        <div class="usage_box box install">
+          <h3 class="box_title">Установка:</h3>
+          <ol>
+            <li>Вызвать цель
+              <i>make install</i> из папки src.
+            </li>
+            <li>Дождаться установки *.app.</li>
+          </ol>
+        </div>
+        <div class="usage_box box dist">
+          <h3 class="box_title">Сборка в архив:</h3>
+          <ol>
+            <li>Вызвать цель <i>make dist</i> из папки src.</li>
+            <li>Архив собирается в папку <i>src</i>.</li>
+          </ol>
+        </div>
+
+        <div class="usage_box box uninstall">
+          <h3 class="box_title">Удаление:</h3>
+          <ol>
+            <li>Вызвать цель <i>make uninstall</i> из папки src.</li>
+            <li>Дождаться удаления&nbsp; *.app.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="open">
+    <div class="container">
+  <h2 class="section_title">Запуск и использование: </h2>
+  <ol>
+    <li>
+      Для запуска приложения открыть исполняемый файл open ./build/3DViewer.app/Contents/MacOS/3DViewer, либо через
+      терминал командой &quot;open build/3DViewer.app&quot;
+    </li>
+    <li>
+      Программа загружает файлы в формате *.obj.
+    </li>
+    <li>
+      После загрузки объектного файла доступен весь функционал в графическом интерфейсе, перемещение по осям возможно
+      при
+      помощи соответствующих слайдеров на цифровой панели программы.
+    </li>
+    <li>
+      Для выбора необходимого цветового решения необходимо использовать кнопки "color verticies", "color edges",
+      "Background color". При помощи
+      кнопки &quot;Reset values&quot; можно сбросить настройки пользователя на настройки установленные разработчиками по
+      умолчанию. Для сохранения в формате bmp, jpg, gif, использовать кнопки "bmp", "jpg" и "gif" соответственно.
+    </li>
+  </ol>
+    </div>
+  </section>
+  
+  <section class="actions">
+    <div class="container">
+      <h2 class="sectioin_title">Доступные действия:</h2>
+
+      <div class="actions_content content">
+        <div class="actions_box box">
+          <h3 class="box_title">Перемещение и вращение:</h3>
+          <ol>
+            <li>Перемещение по оси X: <i>"Translate X: от -180 до +180"</i></li>
+            <li>Перемещение по оси Y: <i>"Translate Y: от -180 до +180"</i></li>
+            <li>Перемещение по оси Z:<i>"Translate Z: от -180 до +180"</i></li>
+            <li>Вращение по оси X: <i>"Rotate X: от -180 до +180"</i></li>
+            <li>Вращение по оси Y: <i>"Rotate Y: от -180 до +180"</i></li>
+            <li>Вращение по оси Z: <i>"Rotate Z: от -180 до +180"</i></li>
+            <li>Приближение: <i> "Scale от 1 - до 100"</i></li>
+          </ol>
+        </div>
+        <div class="actions_box box">
+          <h3 class="box_title">Опции:</h3>
+          <ol>
+            <li>Тип проекции: <i>"Central" - центральная, "parallel" - параллельная</i></li>
+            <li>Тип вершин: <i>"Disable" - невидимые, "Circle" - шарообразные , "Square" - квадратные</i></li>
+            <li>Тип граней: <i>"Solid - прямые, "Dashed" - пунктирные</i></li>
+            <li>Толщина граней: <i>"Thickness"</i></li>
+            <li>Цвет вершин: <i>"color verticies"</i></li>
+            <li>Цвет граней: <i>"color edges"</i></li>
+            <li>Цвет заднего фона: <i> "Background color"</i></li>
+            <li>Сброс значений на заводские настройки: <i>"Reset values"</i></li>
+            <li>Сохранение значений в формате: bmp <i>"bmp"</i></li>
+            <li>Сохранение значений в формате: jpg <i>"jpg"</i></li>
+            <li>Сохранение значений в формате: gif <i>"gif"</i></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <hr>
+      <p style="text-align: center;">3DViewer_v2.0 &copy; 2023 joaquind, stonehom</p>
+      <p>Current version of the program is directly inherited from 3DViewer_v1.0 implemented by DATAN(c).</p>
+      <p>Developers: bernardi, joaquind, stonehom, hazzeasu, killeral. &copy; All rights reserved.</p>
+    </div>
+  </footer>
+
+  
+</body>
+</html>

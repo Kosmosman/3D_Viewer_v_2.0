@@ -1,3 +1,7 @@
+#Qt specific files
+*.pro.user
+*.pro.user*
+
 # Prerequisites
 *.d
 
