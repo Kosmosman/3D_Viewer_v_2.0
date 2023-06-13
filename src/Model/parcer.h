@@ -2,6 +2,7 @@
 #define CPP_3D_VIEWER_V2_SRC_MODEL_PARCER_H_
 
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -29,6 +30,9 @@ class Parcer {
     if (file_.is_open()) file_.close();
   };
   void Parce();
+  long GetFileSize(std::string str);
+  void ReadVertexes(std::stringstream& ss);
+  void ReadFacets(std::stringstream& ss);
 };
 };  // namespace s21
 
