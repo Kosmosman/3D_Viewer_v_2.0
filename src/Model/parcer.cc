@@ -72,7 +72,7 @@ void Parcer::ReadFacets(std::stringstream& ss) {
     for (auto it = substr.begin(); it != substr.end() && *it != '/'; ++it) {
       num += *it;
     }
-    vertexes_.push_back(std::stoi(num));
+    facets_.push_back(std::stoi(num));
     num = "";
   }
   if (count < 2) is_valid_ = false;
