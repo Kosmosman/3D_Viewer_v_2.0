@@ -9,15 +9,15 @@
 namespace s21 {
 class Parcer {
  public:
-  Parcer() = default;
-  Parcer(std::string&& str);
+  Parcer() : file_{}, max_coordinate_{}, vertexes_{}, facets_{} {};
+  Parcer(std::string str);
   Parcer(const Parcer& other) = delete;
-  Parcer(Parcer&& other){};
+  Parcer(Parcer&& other) = delete;
   ~Parcer() { Close(); };
 
-  double GetMaxCoordinate() const {};
-  std::vector<double> GetVertexes() const {};
-  std::vector<double> GetFacets() const {};
+  double GetMaxCoordinate() const noexcept { return max_coordinate_; };
+  std::vector<double> GetVertexes() const noexcept { return vertexes_; };
+  std::vector<double> GetFacets() const noexcept { return facets_; };
 
  private:
   std::ifstream file_;
