@@ -17,6 +17,7 @@ Parcer::Parcer(std::string str) : Parcer() {
     vertexes_.reserve(size / 3);
     facets_.reserve(size / 2);
     Parce();
+    Close();
   } else {
     is_valid_ = false;
   }
