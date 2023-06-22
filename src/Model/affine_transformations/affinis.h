@@ -10,26 +10,35 @@
 
 namespace s21 {
 
+    using vec_iter = std::vector<double>::iterator;
+
     class Move {
-        void Calculate(std::vector& data, const std::pair<int, int>& values) override {};
+    public:
+        void Calculate(vec_iter start, vec_iter end, const std::pair<int, int>& values);
         ~Move(){};
     };
 
     class Rotate {
-        void Calculate(std::vector& data, const std::pair<int, int>& values) override;
+    public:
+        void Calculate(vec_iter start, vec_iter end, const std::pair<int, int>& values);
         ~Rotate(){};
     };
 
     class Scaling {
-        void Calculate(std::vector& data, const std::pair<int, int>& values) override;
+    public:
+        void Calculate(vec_iter start, vec_iter end, const std::pair<int, int>& values);
         ~Scaling(){};
     };
 
     template <class Operation>
     class Affinis : public Operation {
-        void MakeCalculate(std::vector& data, const std::pair<int, int>& values) {
-            Calculate(start, end);
-        }
+    public:
+        Affinis(std::size_t size);
+        void MakeCalculate(std::vector<double>& data, const std::pair<int, int>& values);
+
+    private:
+        std::vector<std::thread> threads_pool_;
+        std::size_t min_thread_elem_;
     };
 
 } // s21
