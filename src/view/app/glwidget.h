@@ -69,7 +69,7 @@ class GLWidget : public QOpenGLWidget {
   int angle_prev_y = 0;
   int angle_prev_z = 0;
 
-  long double prev_scale = 1.0;
+  long double prev_scale = 50.0;
 
   QPoint m_mousePosition_;
   GLfloat angle_x_, angle_y_;

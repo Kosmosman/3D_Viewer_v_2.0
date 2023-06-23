@@ -115,7 +115,7 @@ void GLWidget::setupPerspective() {
 
 void GLWidget::setScale(int scale) {
   printf("scaleGL = %Lf\n", (long double)scale);
-  printf("prev_ = %Lf\n", prev_scale);
+  printf("prevGL = %Lf\n", prev_scale);
   s21_scale(&data, (long double)scale / prev_scale);
   prev_scale = (long double)scale;
   update();

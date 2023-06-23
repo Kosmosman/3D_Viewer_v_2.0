@@ -156,8 +156,8 @@ void MainWindow::scaleScrollbarValueChanged(int value) {
   ui_->scale_text->setText(QString::number(value));
 }
 void MainWindow::scaleTextEdit() {
-  int val = ui_->scale_text->text().toInt();
-  ui_->scrollbar_scale->setValue(val);
+  int value = ui_->scale_text->text().toInt();
+  ui_->scrollbar_scale->setValue(value);
 }
 
 void MainWindow::projectionTypeSetup() {
@@ -295,8 +295,8 @@ void MainWindow::defaultScrollbars() {
     iterRotateLineEdits->setText(QString::number(0));
   }
 
-  ui_->scrollbar_scale->setValue(1);
-  ui_->scale_text->setText(QString::number(1));
+  ui_->scrollbar_scale->setValue(50);
+  ui_->scale_text->setText(QString::number(50));
 
   ui_->scrollbar_vertices->setEnabled(true);
   ui_->scrollbar_vertices->setValue(5);
