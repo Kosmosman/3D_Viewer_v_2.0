@@ -8,6 +8,7 @@
 #include <QMouseEvent>
 #include <QOpenGLWidget>
 #include <QPushButton>
+#include <QWheelEvent>
 #include <algorithm>
 #include <cstring>
 
@@ -72,6 +73,7 @@ class GLWidget : public QOpenGLWidget {
   long double prev_scale = 50.0;
 
   QPoint m_mousePosition_;
+  GLfloat shift_x, shift_y;
   GLfloat angle_x_, angle_y_;
 
   void setupPerspective();

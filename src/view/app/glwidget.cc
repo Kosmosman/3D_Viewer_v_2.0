@@ -6,6 +6,7 @@ GLWidget::~GLWidget() { s21_remove_data(&data); }
 
 void GLWidget::initSettings() {
   angle_x_ = angle_y_ = 0;
+  shift_x = shift_y = 0;
   projectionMode_ = 0;
   pointSize_ = 3;
   pointMode_ = 1;
@@ -47,13 +48,23 @@ void GLWidget::mousePressEvent(QMouseEvent *event) {
   }
 }
 void GLWidget::mouseMoveEvent(QMouseEvent *event) {
-  if (event->buttons() != Qt::RightButton) return;
-  QPoint diff = event->pos() - m_mousePosition_;
-  angle_x_ += (1 / M_PI * (diff.y()));
-  angle_y_ += (1 / M_PI * (diff.x()));
-  m_mousePosition_ = event->pos();
-  setXRotation((angle_x_ + 180) * 16);
-  setYRotation((angle_y_ + 180) * 16);
+  if (event->buttons() == Qt::RightButton) {
+    QPoint diff = event->pos() - m_mousePosition_;
+    angle_x_ += (1 / M_PI * (diff.y()));
+    angle_y_ += (1 / M_PI * (diff.x()));
+    m_mousePosition_ = event->pos();
+    setXRotation(angle_x_ + 180);
+    setYRotation(angle_y_ + 180);
+  } else if (event->buttons() == Qt::LeftButton) {
+    QPoint diff = event->pos() - m_mousePosition_;
+    shift_x += (1 / M_PI * (diff.x()));
+    shift_y += (1 / M_PI * (diff.y()));
+    m_mousePosition_ = event->pos();
+    setXTranslate(shift_x);
+    setYTranslate(-shift_y);
+  } else {
+    return;
+  }
 }
 
 void GLWidget::Drawing() {
@@ -142,7 +153,7 @@ void GLWidget::setZTranslate(int value) {
 
 void GLWidget::setXRotation(int angle) {
   angle -= 180;
-  s21_rotate_x(&data, angle - angle_prev_x);
+  s21_rotate_x(&data, -(angle - angle_prev_x));
   angle_prev_x = angle;
   update();
 }
