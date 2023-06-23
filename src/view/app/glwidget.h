@@ -61,23 +61,15 @@ class GLWidget : public QOpenGLWidget {
   int edgeMode_;
   int edgeSize_;
 
-  int m_xRot = 360 * 8;
-  int m_yRot = 360 * 8;
-  int m_zRot = 360 * 8;
-  int m_xMove = 0;
-  int m_yMove = 0;
-  int m_zMove = 0;
-  int scaleVal = 1;
-
   int a_prev_x = 0;
   int a_prev_y = 0;
   int a_prev_z = 0;
 
-  int angle_prev_x = 360 * 8;
-  int angle_prev_y = 360 * 8;
-  int angle_prev_z = 360 * 8;
+  int angle_prev_x = 0;
+  int angle_prev_y = 0;
+  int angle_prev_z = 0;
 
-  int prev_scale = 1;
+  long double prev_scale = 1.0;
 
   QPoint m_mousePosition_;
   GLfloat angle_x_, angle_y_;

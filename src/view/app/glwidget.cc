@@ -114,12 +114,11 @@ void GLWidget::setupPerspective() {
 }
 
 void GLWidget::setScale(int scale) {
-  if (scale != scaleVal) {
-    scaleVal = scale;
-    s21_scale(&data, fabs(scaleVal / 1000.0f), fabs(prev_scale / 1000.0f));
-    prev_scale = scaleVal;
-    update();
-  }
+  printf("scaleGL = %Lf\n", (long double)scale);
+  printf("prev_ = %Lf\n", prev_scale);
+  s21_scale(&data, (long double)scale / prev_scale);
+  prev_scale = (long double)scale;
+  update();
 }
 
 void GLWidget::setXTranslate(int value) {
@@ -141,37 +140,21 @@ void GLWidget::setZTranslate(int value) {
   update();
 }
 
-static void qNormalizeAngle(int &angle) {
-  while (angle < 0) angle += 360 * 16;
-  while (angle > 360 * 16) angle -= 360 * 16;
-}
 void GLWidget::setXRotation(int angle) {
-  qNormalizeAngle(angle);
-  if (angle != m_xRot) {
-    m_xRot = angle;
-    s21_rotate_x(&data, -(180.0 - m_xRot / 16.0),
-                 -(180.0 - angle_prev_x / 16.0));
-    angle_prev_x = m_xRot;
-    update();
-  }
+  angle -= 180;
+  s21_rotate_x(&data, angle - angle_prev_x);
+  angle_prev_x = angle;
+  update();
 }
 void GLWidget::setYRotation(int angle) {
-  qNormalizeAngle(angle);
-  if (angle != m_yRot) {
-    m_yRot = angle;
-    s21_rotate_y(&data, -(180.0 - m_yRot / 16.0),
-                 -(180.0 - angle_prev_y / 16.0));
-    angle_prev_y = m_yRot;
-    update();
-  }
+  angle -= 180;
+  s21_rotate_y(&data, angle - angle_prev_y);
+  angle_prev_y = angle;
+  update();
 }
 void GLWidget::setZRotation(int angle) {
-  qNormalizeAngle(angle);
-  if (angle != m_zRot) {
-    m_zRot = angle;
-    s21_rotate_z(&data, -(180.0 - m_zRot / 16.0),
-                 -(180.0 - angle_prev_z / 16.0));
-    angle_prev_z = m_zRot;
-    update();
-  }
+  angle -= 180;
+  s21_rotate_z(&data, angle - angle_prev_z);
+  angle_prev_z = angle;
+  update();
 }

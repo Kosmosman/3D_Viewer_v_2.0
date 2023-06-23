@@ -99,9 +99,8 @@ void MainWindow::rotateScrollbarSetup() {
                             ui_->line_edit_rotate_z};
 
   for (auto &iterRotate : this->rotateScrollbars_) {
-    iterRotate->setRange(0, 360 * 16);
-    iterRotate->setSingleStep(16);
-    iterRotate->setPageStep(15 * 16);
+    iterRotate->setRange(0, 360);
+    iterRotate->setSingleStep(1);
     connect(iterRotate, &QScrollBar::valueChanged, (this),
             &MainWindow::rotateScrollbarValueChanged);
   }
@@ -118,7 +117,7 @@ void MainWindow::rotateScrollbarSetup() {
           &GLWidget::setZRotation);
 }
 void MainWindow::rotateScrollbarValueChanged(int value) {
-  value = value / 16 - 180;
+  value -= 180;
   QScrollBar *scrollbar = (QScrollBar *)sender();
   if (scrollbar == ui_->scrollbar_rotate_x) {
     ui_->line_edit_rotate_x->setText(QString::number(value));
@@ -128,41 +127,30 @@ void MainWindow::rotateScrollbarValueChanged(int value) {
     ui_->line_edit_rotate_z->setText(QString::number(value));
   }
 }
-int valueNormalize(int val) {
-  while (val > 180) {
-    val -= 360;
-  }
-  while (val < -180) {
-    val += 360;
-  }
-  return val;
-}
 void MainWindow::rotateTextEdit() {
   QLineEdit *line_edit = (QLineEdit *)sender();
-  int val = (line_edit->text().toInt() + 180) * 16;
+  int value = line_edit->text().toInt() + 180;
 
   if (line_edit == ui_->line_edit_rotate_x) {
-    ui_->scrollbar_rotate_x->setValue(val);
+    ui_->scrollbar_rotate_x->setValue(value);
   } else if (line_edit == ui_->line_edit_rotate_y) {
-    ui_->scrollbar_rotate_y->setValue(val);
+    ui_->scrollbar_rotate_y->setValue(value);
   } else if (line_edit == ui_->line_edit_rotate_z) {
-    ui_->scrollbar_rotate_z->setValue(val);
+    ui_->scrollbar_rotate_z->setValue(value);
   }
-  // valueNormalize(val);
-  // ui_->OGLWidget->setXRotation(val * 16);
 }
 
 void MainWindow::scaleScrollbarSetup() {
   ui_->scrollbar_scale->setRange(1, 100);
   ui_->scrollbar_scale->setSingleStep(1);
 
-  connect(ui_->scrollbar_scale, &QScrollBar::valueChanged, ui_->OGLWidget,
-          &GLWidget::setScale);
-  connect(ui_->scale_text, SIGNAL(editingFinished()), (this),
-          SLOT(scaleTextEdit()));
-  // Connecting scrollbar scale to text
   connect(ui_->scrollbar_scale, &QScrollBar::valueChanged, (this),
           &MainWindow::scaleScrollbarValueChanged);
+  connect(ui_->scale_text, SIGNAL(editingFinished()), (this),
+          SLOT(scaleTextEdit()));
+
+  connect(ui_->scrollbar_scale, &QScrollBar::valueChanged, ui_->OGLWidget,
+          &GLWidget::setScale);
 }
 void MainWindow::scaleScrollbarValueChanged(int value) {
   ui_->scale_text->setText(QString::number(value));
@@ -301,7 +289,7 @@ void MainWindow::defaultScrollbars() {
   }
 
   for (auto &iterRotate : this->rotateScrollbars_) {
-    iterRotate->setValue(360 * 8);
+    iterRotate->setValue(180);
   }
   for (auto &iterRotateLineEdits : this->rotateLineEdits_) {
     iterRotateLineEdits->setText(QString::number(0));

@@ -54,11 +54,11 @@ void s21_move_x(data_t *data, long double a);
 void s21_move_y(data_t *data, long double a);
 void s21_move_z(data_t *data, long double a);
 
-void s21_rotate_x(data_t *data, long double angle, long double angle_prev);
-void s21_rotate_y(data_t *data, long double angle, long double angle_prev);
-void s21_rotate_z(data_t *data, long double angle, long double angle_prev);
+void s21_rotate_x(data_t *data, long double angle);
+void s21_rotate_y(data_t *data, long double angle);
+void s21_rotate_z(data_t *data, long double angle);
 long double s21_degres_to_radians(long double angle);
 
-void s21_scale(data_t *data, long double scale, long double scale_prev);
+void s21_scale(data_t *data, long double scale);
 
 #endif
