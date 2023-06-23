@@ -2,24 +2,24 @@
 #include "s21_3DViewer_v1.h"
 #include "string.h"
 
-void s21_move_x(data_t *data, long double a_now, long double a_prev) {
+void s21_move_x(data_t *data, long double a) {
   for (int i = 0; data->massiv && i < (data->count_of_vertexes + 1) * 3;
        i += 3) {
-    data->massiv[i] += (a_now - a_prev);
+    data->massiv[i] += a;
   }
 }
 
-void s21_move_y(data_t *data, long double a_now, long double a_prev) {
+void s21_move_y(data_t *data, long double a) {
   for (int i = 1; data->massiv && i < (data->count_of_vertexes + 1) * 3;
        i += 3) {
-    data->massiv[i] += (a_now - a_prev);
+    data->massiv[i] += a;
   }
 }
 
-void s21_move_z(data_t *data, long double a_now, long double a_prev) {
+void s21_move_z(data_t *data, long double a) {
   for (int i = 2; data->massiv && i < (data->count_of_vertexes + 1) * 3;
        i += 3) {
-    data->massiv[i] += (a_now - a_prev);
+    data->massiv[i] += a;
   }
 }
 

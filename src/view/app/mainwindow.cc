@@ -52,7 +52,6 @@ void MainWindow::translateScrollbarSetup() {
 
   for (auto &iterTranslate : this->translateScrollbars_) {
     iterTranslate->setRange(0, 100);
-    iterTranslate->setSingleStep(1);
     connect(iterTranslate, &QScrollBar::valueChanged, (this),
             &MainWindow::translateScrollbarValueChanged);
   }

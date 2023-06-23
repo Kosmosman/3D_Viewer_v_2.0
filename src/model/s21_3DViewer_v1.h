@@ -50,9 +50,9 @@ int s21_is_digit(char c);
 
 void s21_array_minmax(data_t data, double *max_coord);
 
-void s21_move_x(data_t *data, long double a_now, long double a_prev);
-void s21_move_y(data_t *data, long double a_now, long double a_prev);
-void s21_move_z(data_t *data, long double a_now, long double a_prev);
+void s21_move_x(data_t *data, long double a);
+void s21_move_y(data_t *data, long double a);
+void s21_move_z(data_t *data, long double a);
 
 void s21_rotate_x(data_t *data, long double angle, long double angle_prev);
 void s21_rotate_y(data_t *data, long double angle, long double angle_prev);

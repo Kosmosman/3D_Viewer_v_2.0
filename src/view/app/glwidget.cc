@@ -122,29 +122,23 @@ void GLWidget::setScale(int scale) {
   }
 }
 
-void GLWidget::setXTranslate(int step) {
-  if (step != m_xMove) {
-    m_xMove = step;
-    s21_move_x(&data, 0.05 * (50 - m_xMove), 0.05 * (50 - (a_prev_x)));
-    a_prev_x = m_xMove;
-    update();
-  }
+void GLWidget::setXTranslate(int value) {
+  value -= 50;
+  s21_move_x(&data, 0.05 * (value - a_prev_x));
+  a_prev_x = value;
+  update();
 }
-void GLWidget::setYTranslate(int step) {
-  if (step != m_yMove) {
-    m_yMove = step;
-    s21_move_y(&data, 0.05 * (50 - m_yMove), 0.05 * (50 - (a_prev_y)));
-    a_prev_y = m_yMove;
-    update();
-  }
+void GLWidget::setYTranslate(int value) {
+  value -= 50;
+  s21_move_y(&data, 0.05 * (value - a_prev_y));
+  a_prev_y = value;
+  update();
 }
-void GLWidget::setZTranslate(int step) {
-  if (step != m_zMove) {
-    m_zMove = step;
-    s21_move_z(&data, 0.05 * (50 - m_zMove), 0.05 * (50 - (a_prev_z)));
-    a_prev_z = m_zMove;
-    update();
-  }
+void GLWidget::setZTranslate(int value) {
+  value -= 50;
+  s21_move_z(&data, 0.05 * (value - a_prev_z));
+  a_prev_z = value;
+  update();
 }
 
 static void qNormalizeAngle(int &angle) {
