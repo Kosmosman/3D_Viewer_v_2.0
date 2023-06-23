@@ -61,6 +61,7 @@ void MainWindow::translateScrollbarSetup() {
             SLOT(translateTextEdit()));
   }
 
+  // Связь между скролбарами и перемещением модели в окошке
   connect(ui_->scrollbar_translate_x, &QScrollBar::valueChanged, ui_->OGLWidget,
           &GLWidget::setXTranslate);
   connect(ui_->scrollbar_translate_y, &QScrollBar::valueChanged, ui_->OGLWidget,
@@ -181,9 +182,9 @@ void MainWindow::projectionTypeSetup() {
 void MainWindow::projectionType() {
   QRadioButton *radiobutton = (QRadioButton *)sender();
   if (radiobutton == ui_->type_of_projection_central_button) {
-    ui_->OGLWidget->projectionMode = 0;
+    ui_->OGLWidget->setProjectionMode(0);
   } else {
-    ui_->OGLWidget->projectionMode = 1;
+    ui_->OGLWidget->setProjectionMode(1);
   }
   ui_->OGLWidget->update();
 }
@@ -204,20 +205,20 @@ void MainWindow::verticiesParametersSetup() {
 void MainWindow::verticeType() {
   QRadioButton *radiobutton = (QRadioButton *)sender();
   if (radiobutton == ui_->verticies_disable_button) {
-    ui_->OGLWidget->pointMode = 0;
+    ui_->OGLWidget->setPointMode(0);
     ui_->scrollbar_vertices->setValue(0);
     ui_->scrollbar_vertices->setEnabled(false);
   } else if (radiobutton == ui_->verticies_circle_button) {
-    ui_->OGLWidget->pointMode = 1;
+    ui_->OGLWidget->setPointMode(1);
     ui_->scrollbar_vertices->setEnabled(true);
   } else {
-    ui_->OGLWidget->pointMode = 2;
+    ui_->OGLWidget->setPointMode(2);
     ui_->scrollbar_vertices->setEnabled(true);
   }
   ui_->OGLWidget->update();
 }
 void MainWindow::verticeSize(int value) {
-  ui_->OGLWidget->pointSize = value;
+  ui_->OGLWidget->setPointSize(value);
   ui_->OGLWidget->update();
 }
 
@@ -235,14 +236,14 @@ void MainWindow::edgesParametersSetup() {
 void MainWindow::edgeType() {
   QRadioButton *radiobutton = (QRadioButton *)sender();
   if (radiobutton == ui_->edges_solid_button) {
-    ui_->OGLWidget->edgeMode = 0;
+    ui_->OGLWidget->setEdgeMode(0);
   } else {
-    ui_->OGLWidget->edgeMode = 1;
+    ui_->OGLWidget->setEdgeMode(1);
   }
   ui_->OGLWidget->update();
 }
 void MainWindow::edgeSizeScrollbarChanged(int value) {
-  ui_->OGLWidget->edgeSize = value;
+  ui_->OGLWidget->setEdgeSize(value);
   ui_->OGLWidget->update();
 }
 
@@ -259,11 +260,11 @@ void MainWindow::onChangeColor() {
                                         QColorDialog::DontUseNativeDialog);
   QPushButton *button = (QPushButton *)sender();
   if (button == ui_->background_color_button) {
-    ui_->OGLWidget->backgroundColor = color;
+    ui_->OGLWidget->setBackgroundColor(color);
   } else if (button == ui_->color_edges_button) {
-    ui_->OGLWidget->edgeColor = color;
+    ui_->OGLWidget->setEdgeColor(color);
   } else {
-    ui_->OGLWidget->dotColor = color;
+    ui_->OGLWidget->setDotColor(color);
   }
   updateUiColors();
 }
@@ -272,23 +273,23 @@ void MainWindow::updateUiColors() {
   ui_->graphics_background_color->setStyleSheet(
       QString("border-style: solid; border-width: 1px; border-color: black; "
               "padding-top: 3px; background-color: rgb(%1, %2, %3);")
-          .arg(ui_->OGLWidget->backgroundColor.red())
-          .arg(ui_->OGLWidget->backgroundColor.green())
-          .arg(ui_->OGLWidget->backgroundColor.blue()));
+          .arg(ui_->OGLWidget->getBackgroundColor().red())
+          .arg(ui_->OGLWidget->getBackgroundColor().green())
+          .arg(ui_->OGLWidget->getBackgroundColor().blue()));
   ui_->graphics_color_edges->setAutoFillBackground(true);
   ui_->graphics_color_edges->setStyleSheet(
       QString("border-style: solid; border-width: 1px; border-color: black; "
               "padding-top: 3px; background-color: rgb(%1, %2, %3);")
-          .arg(ui_->OGLWidget->edgeColor.red())
-          .arg(ui_->OGLWidget->edgeColor.green())
-          .arg(ui_->OGLWidget->edgeColor.blue()));
+          .arg(ui_->OGLWidget->getEdgeColor().red())
+          .arg(ui_->OGLWidget->getEdgeColor().green())
+          .arg(ui_->OGLWidget->getEdgeColor().blue()));
   ui_->graphics_verticies_color->setAutoFillBackground(true);
   ui_->graphics_verticies_color->setStyleSheet(
       QString("border-style: solid; border-width: 1px; border-color: black; "
               "padding-top: 3px; background-color: rgb(%1, %2, %3);")
-          .arg(ui_->OGLWidget->dotColor.red())
-          .arg(ui_->OGLWidget->dotColor.green())
-          .arg(ui_->OGLWidget->dotColor.blue()));
+          .arg(ui_->OGLWidget->getDotColor().red())
+          .arg(ui_->OGLWidget->getDotColor().green())
+          .arg(ui_->OGLWidget->getDotColor().blue()));
   ui_->OGLWidget->update();
 }
 
@@ -318,6 +319,7 @@ void MainWindow::defaultScrollbars() {
 void MainWindow::defaultSettings() {
   defaultScrollbars();
 
+  // Это что вообще такое? Типа загрузка дефолтного парсера?
   for (int i = 0; ui_->OGLWidget->data.massiv &&
                   i < (ui_->OGLWidget->data.count_of_vertexes + 1) * 3;
        ++i) {
@@ -340,13 +342,13 @@ void MainWindow::checkSettingsFile() {
     settings.beginGroup("LineSet");
     if (settings.value("solid").toBool()) {
       ui_->edges_solid_button->setChecked(true);
-      ui_->OGLWidget->edgeMode = 0;
+      ui_->OGLWidget->setEdgeMode(0);
     } else if (settings.value("dashed").toBool()) {
       ui_->dashed_solid_button->setChecked(true);
-      ui_->OGLWidget->edgeMode = 1;
+      ui_->OGLWidget->setEdgeMode(0);
     }
     if (settings.value("LineColor").toString().length() > 0) {
-      ui_->OGLWidget->edgeColor = settings.value("LineColor").toString();
+      ui_->OGLWidget->setEdgeColor(settings.value("LineColor").toString());
     }
     ui_->scrollbar_edges->setValue(settings.value("value").toInt());
     settings.endGroup();
@@ -354,23 +356,23 @@ void MainWindow::checkSettingsFile() {
     settings.beginGroup("VerticeSet");
     if (settings.value("disable").toBool()) {
       ui_->verticies_disable_button->setChecked(true);
-      ui_->OGLWidget->pointMode = 0;
+      ui_->OGLWidget->setPointMode(0);
 
     } else if (settings.value("circle").toBool()) {
       ui_->verticies_circle_button->setChecked(true);
-      ui_->OGLWidget->pointMode = 1;
+      ui_->OGLWidget->setPointMode(1);
 
     } else if (settings.value("square").toBool()) {
       ui_->verticies_square_button->setChecked(true);
-      ui_->OGLWidget->pointMode = 2;
+      ui_->OGLWidget->setPointMode(2);
     }
-    ui_->OGLWidget->dotColor = settings.value("color").toString();
+    ui_->OGLWidget->setDotColor(settings.value("color").toString());
     ui_->scrollbar_vertices->setValue(settings.value("size").toInt());
     settings.endGroup();
 
     settings.beginGroup("Background");
     if (settings.value("color").toString().length() > 0) {
-      ui_->OGLWidget->backgroundColor = settings.value("color").toString();
+      ui_->OGLWidget->setBackgroundColor(settings.value("color").toString());
     }
     settings.endGroup();
   }
@@ -381,7 +383,7 @@ void MainWindow::saveSettings() {
   settings.beginGroup("LineSet");
   settings.setValue("solid", ui_->edges_solid_button->isChecked());
   settings.setValue("dashed", ui_->dashed_solid_button->isChecked());
-  settings.setValue("LineColor", ui_->OGLWidget->edgeColor);
+  settings.setValue("LineColor", ui_->OGLWidget->getEdgeColor());
   settings.setValue("value", ui_->scrollbar_edges->value());
   settings.endGroup();
 
@@ -389,12 +391,12 @@ void MainWindow::saveSettings() {
   settings.setValue("disable", ui_->verticies_disable_button->isChecked());
   settings.setValue("circle", ui_->verticies_circle_button->isChecked());
   settings.setValue("square", ui_->verticies_square_button->isChecked());
-  settings.setValue("color", ui_->OGLWidget->dotColor);
+  settings.setValue("color", ui_->OGLWidget->getDotColor());
   settings.setValue("size", ui_->scrollbar_vertices->value());
   settings.endGroup();
 
   settings.beginGroup("Background");
-  settings.setValue("color", ui_->OGLWidget->backgroundColor);
+  settings.setValue("color", ui_->OGLWidget->getBackgroundColor());
   settings.endGroup();
 }
 
@@ -420,6 +422,7 @@ void MainWindow::fileHandling() {
         QString fileName = fileNames.at(0);
         QByteArray ba = fileName.toLocal8Bit();
         char *input = ba.data();
+        // Вот эти все дела надо пересмотреть, конечно
         s21_remove_data(&ui_->OGLWidget->data);
         if (s21_parsing(&ui_->OGLWidget->data, input)) {
           printf("ok\n");

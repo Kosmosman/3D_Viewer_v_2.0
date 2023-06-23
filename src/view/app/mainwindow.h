@@ -36,6 +36,8 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
+ public slots:
+
  private slots:
 
   void translateScrollbarValueChanged(int value);
