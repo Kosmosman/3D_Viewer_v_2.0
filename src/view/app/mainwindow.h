@@ -19,9 +19,9 @@
 #include "glwidget.h"
 #include "qgifimage.h"
 
-extern "C" {
-#include "../../model/s21_3DViewer_v1.h"
-}
+//extern "C" {
+//#include "../../model/s21_3DViewer_v1.h"
+//}
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

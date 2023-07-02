@@ -14,6 +14,8 @@ SOURCES += \
     ./model/s21_parser.c \
     ./model/s21_transform.c \
     ./controller/controller.cc \
+    ./Model/basic_model/model.cc \
+    ./Model/parcer/parcer.cc \
     ./view/app/glwidget.cc \
     ./main.cc \
     ./view/app/mainwindow.cc
@@ -22,6 +24,8 @@ HEADERS += \
     ./model/common/s21_matrix.h \
     ./model/s21_3DViewer_v1.h \
     ./controller/controller.h \
+    ./Model/basic_model/model.h \
+    ./Model/parcer/parcer.h \
     ./view/app/glwidget.h \
     ./view/app/mainwindow.h
 

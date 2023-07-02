@@ -1,8 +1,19 @@
 #include "glwidget.h"
 
-GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent) { initSettings(); }
+#include <iostream>
 
-GLWidget::~GLWidget() { s21_remove_data(&data); }
+GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent) {
+  std::string filename =
+      "/home/user/Documents/CPP4_3DViewer_v2.0-1/src/obj/cube.obj";
+  initModel(filename);
+  initSettings();
+}
+
+GLWidget::~GLWidget() {
+  //    s21_remove_data(&data);
+}
+
+void GLWidget::initModel(std::string &filename) { s21::Model model_(filename); }
 
 void GLWidget::initSettings() {
   angle_x_ = angle_y_ = 0;
@@ -29,7 +40,7 @@ void GLWidget::resizeGL(int w, int h) {
 }
 
 void GLWidget::paintGL() {
-  if (data.massiv) {
+  if (!model_.GetVertexes().empty()) {
     glClearColor(backgroundColor_.redF(), backgroundColor_.greenF(),
                  backgroundColor_.blueF(), backgroundColor_.alphaF());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -37,8 +48,8 @@ void GLWidget::paintGL() {
     glLoadIdentity();
     setupPerspective();
     Drawing();
-  } else {
-    s21_remove_data(&data);
+    //  } else {
+    //    s21_remove_data(&data);
   }
 }
 
@@ -68,7 +79,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void GLWidget::Drawing() {
-  glVertexPointer(3, GL_DOUBLE, 0, data.massiv);
+  glVertexPointer(3, GL_DOUBLE, 0, model_.GetVertexes().data());
+  std::cout << model_.GetVertexes().data() << endl;
   glEnableClientState(GL_VERTEX_ARRAY);
   pointDrawing();
   edgeDrawing();
@@ -81,7 +93,8 @@ void GLWidget::pointDrawing() {
     if (pointMode_ == 1) {
       glEnable(GL_POINT_SMOOTH);
     }
-    glDrawArrays(GL_POINTS, 1, data.count_of_vertexes);
+    glDrawArrays(GL_POINTS, 1, model_.GetVertexes().size());
+    std::cout << model_.GetVertexes().size() << endl;
     if (pointMode_ == 1) {
       glDisable(GL_POINT_SMOOTH);
     }
@@ -94,19 +107,23 @@ void GLWidget::edgeDrawing() {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(2, 0x00F0);
   }
-  glDrawElements(GL_LINES, data.sizePolygons, GL_UNSIGNED_INT,
-                 data.massivPolygons);
+  std::cout << model_.GetVertexes().size() << endl;
+  std::cout << model_.GetVertexes().data() << endl;
+  glDrawElements(GL_LINES, model_.GetFacets().size(), GL_UNSIGNED_INT,
+                 model_.GetFacets().data());
   if (edgeMode_ == 1) {
     glDisable(GL_LINE_STIPPLE);
   }
 }
 
 void GLWidget::setupPerspective() {
-  if (data.max_coord < 1) {
-    data.max_coord = 2;
+  double max_coord = model_.GetMaxCoordinate();
+  std::cout << model_.GetMaxCoordinate() << std::endl;
+  if (max_coord < 1) {
+    max_coord = 2;
   }
   GLdouble zNear = 0.001;  // Ближнее расстояние отсечения
-  GLdouble zFar = data.max_coord * 5;  // Дальнее расстояние отсечения
+  GLdouble zFar = max_coord * 5;  // Дальнее расстояние отсечения
 
   if (projectionMode_ == 0) {  // Central/Perspective projection
 
@@ -116,54 +133,53 @@ void GLWidget::setupPerspective() {
 
     glFrustum(-fW, fW, -fH, fH, zNear,
               zFar);  // Устанавливает усеченный конус в режим перспективы
-    glTranslatef(0, 0, -data.max_coord);
+    glTranslatef(0, 0, -max_coord);
   } else {  // Parallel/Orthographic projection
-    glOrtho(-data.max_coord, data.max_coord, -data.max_coord, data.max_coord,
-            -data.max_coord, zFar);
+    glOrtho(-max_coord, max_coord, -max_coord, max_coord, -max_coord, zFar);
   }
   glTranslated(0, 0, -3);
 }
 
 void GLWidget::setScale(int scale) {
-  s21_scale(&data, (long double)scale / prev_scale);
+  //  s21_scale(&data, (long double)scale / prev_scale);
   prev_scale = (long double)scale;
   update();
 }
 
 void GLWidget::setXTranslate(int value) {
   value -= 50;
-  s21_move_x(&data, 0.05 * (value - a_prev_x));
+  //  s21_move_x(&data, 0.05 * (value - a_prev_x));
   a_prev_x = value;
   update();
 }
 void GLWidget::setYTranslate(int value) {
   value -= 50;
-  s21_move_y(&data, 0.05 * (value - a_prev_y));
+  //  s21_move_y(&data, 0.05 * (value - a_prev_y));
   a_prev_y = value;
   update();
 }
 void GLWidget::setZTranslate(int value) {
   value -= 50;
-  s21_move_z(&data, 0.05 * (value - a_prev_z));
+  //  s21_move_z(&data, 0.05 * (value - a_prev_z));
   a_prev_z = value;
   update();
 }
 
 void GLWidget::setXRotation(int angle) {
   angle -= 180;
-  s21_rotate_x(&data, -(angle - angle_prev_x));
+  //  s21_rotate_x(&data, -(angle - angle_prev_x));
   angle_prev_x = angle;
   update();
 }
 void GLWidget::setYRotation(int angle) {
   angle -= 180;
-  s21_rotate_y(&data, angle - angle_prev_y);
+  //  s21_rotate_y(&data, angle - angle_prev_y);
   angle_prev_y = angle;
   update();
 }
 void GLWidget::setZRotation(int angle) {
   angle -= 180;
-  s21_rotate_z(&data, angle - angle_prev_z);
+  //  s21_rotate_z(&data, angle - angle_prev_z);
   angle_prev_z = angle;
   update();
 }

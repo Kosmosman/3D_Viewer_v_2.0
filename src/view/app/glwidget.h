@@ -12,17 +12,21 @@
 #include <algorithm>
 #include <cstring>
 
+#include "../../Model/basic_model/model.h"
+
 using namespace std;
-extern "C" {
-#include "../../model/s21_3DViewer_v1.h"
-}
+// extern "C" {
+// #include "../../model/s21_3DViewer_v1.h"
+// }
 
 class GLWidget : public QOpenGLWidget {
   Q_OBJECT
  public:
   GLWidget(QWidget *parent = nullptr);
   ~GLWidget();
-  data_t data = {0, 0, NULL, 0.0, {0, 0, 0}, NULL, NULL, 0, NULL};
+  s21::Model model_;
+  // data_t data = {0, 0, NULL, 0.0, {0, 0, 0}, NULL, NULL, 0, NULL};
+  void initModel(std::string &filename);
 
   QColor getBackgroundColor() { return backgroundColor_; }
   QColor getEdgeColor() { return edgeColor_; }

@@ -6,10 +6,11 @@
 #include <iostream>
 
 namespace s21 {
+Parcer::Parcer() {}
 // Базовый конструктор, принимает в качестве аргумента название текстового
 // файла. Если файл не валидный, то переменная состояния is_valid_ меняет
 // значение на false
-Parcer::Parcer(std::string str) : Parcer() {
+Parcer::Parcer(std::string& str) : Parcer() {
   file_.open(str);
   if (file_.is_open()) {
     auto size = GetFileSize(str);

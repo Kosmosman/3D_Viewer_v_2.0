@@ -8,7 +8,7 @@
 
 namespace s21 {
 
-Model::Model(std::string file) : filename_{file} {
+Model::Model(std::string& file) : filename_{file} {
   Parcer p(file);
   double max_coordinate_ = p.GetMaxCoordinate();
   std::vector<double> vertexes_ = p.GetVertexes();

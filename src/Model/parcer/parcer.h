@@ -10,7 +10,8 @@ namespace s21 {
 
 class Parcer {
  public:
-  Parcer(std::string str);
+  Parcer();
+  Parcer(std::string &str);
   Parcer(const Parcer &other) = delete;
   Parcer &operator=(const Parcer &other) = delete;
 

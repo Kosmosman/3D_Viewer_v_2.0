@@ -307,11 +307,11 @@ void MainWindow::defaultSettings() {
   defaultScrollbars();
 
   // Это что вообще такое? Типа загрузка дефолтного парсера?
-  for (int i = 0; ui_->OGLWidget->data.massiv &&
-                  i < (ui_->OGLWidget->data.count_of_vertexes + 1) * 3;
-       ++i) {
-    ui_->OGLWidget->data.massiv[i] = ui_->OGLWidget->data.massiv_const[i];
-  }
+//  for (int i = 0; ui_->OGLWidget->data.massiv &&
+//                  i < (ui_->OGLWidget->data.count_of_vertexes + 1) * 3;
+//       ++i) {
+//    ui_->OGLWidget->data.massiv[i] = ui_->OGLWidget->data.massiv_const[i];
+//  }
 
   ui_->type_of_projection_central_button->setChecked(true);
   ui_->verticies_circle_button->setChecked(true);
@@ -410,20 +410,20 @@ void MainWindow::fileHandling() {
         QByteArray ba = fileName.toLocal8Bit();
         char *input = ba.data();
         // Вот эти все дела надо пересмотреть, конечно
-        s21_remove_data(&ui_->OGLWidget->data);
-        if (s21_parsing(&ui_->OGLWidget->data, input)) {
-          printf("ok\n");
-          setWindowTitle(fileName);
-          ui_->statusBar->showMessage("Path: " + fileName);
-          ui_->number_of_facets->setText(
-              QString::number(ui_->OGLWidget->data.count_of_facets));
-          ui_->number_of_vertices->setText(
-              QString::number(ui_->OGLWidget->data.count_of_vertexes));
-          defaultScrollbars();
-        } else {
-          printf("error\n");
-          s21_remove_data(&ui_->OGLWidget->data);
-        }
+        // s21_remove_data(&ui_->OGLWidget->data);
+        // if (s21_parsing(&ui_->OGLWidget->data, input)) {
+        //   printf("ok\n");
+        //   setWindowTitle(fileName);
+        //   ui_->statusBar->showMessage("Path: " + fileName);
+        //   ui_->number_of_facets->setText(
+        //       QString::number(ui_->OGLWidget->data.count_of_facets));
+        //   ui_->number_of_vertices->setText(
+        //       QString::number(ui_->OGLWidget->data.count_of_vertexes));
+        //   defaultScrollbars();
+        // } else {
+        //   printf("error\n");
+        //   s21_remove_data(&ui_->OGLWidget->data);
+        // }
       }
     }
     delete fileDialog;
