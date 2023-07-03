@@ -5,15 +5,16 @@
 GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent) {
   std::string filename =
       "/home/user/Documents/CPP4_3DViewer_v2.0-1/src/obj/cube.obj";
-  initModel(filename);
+  model_(filename);
+  std::cout << model_.GetVertexes().size() << std::endl;
+  std::cout << model_.GetVertexes().data() << std::endl;
+  std::cout << model_.GetFacets().size() << std::endl;
+  std::cout << model_.GetFacets().data() << std::endl;
+  std::cout << model_.GetMaxCoordinate() << std::endl;
   initSettings();
 }
 
-GLWidget::~GLWidget() {
-  //    s21_remove_data(&data);
-}
-
-void GLWidget::initModel(std::string &filename) { s21::Model model_(filename); }
+GLWidget::~GLWidget() {}
 
 void GLWidget::initSettings() {
   angle_x_ = angle_y_ = 0;
@@ -75,8 +76,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void GLWidget::Drawing() {
+  std::cout << "HERE 1 vdata!" << endl;
   glVertexPointer(3, GL_DOUBLE, 0, model_.GetVertexes().data());
-  std::cout << model_.GetVertexes().data() << endl;
   glEnableClientState(GL_VERTEX_ARRAY);
   pointDrawing();
   edgeDrawing();
@@ -89,8 +90,8 @@ void GLWidget::pointDrawing() {
     if (pointMode_ == 1) {
       glEnable(GL_POINT_SMOOTH);
     }
+    std::cout << "HERE vsize!" << endl;
     glDrawArrays(GL_POINTS, 1, model_.GetVertexes().size());
-    std::cout << model_.GetVertexes().size() << endl;
     if (pointMode_ == 1) {
       glDisable(GL_POINT_SMOOTH);
     }
@@ -103,21 +104,23 @@ void GLWidget::edgeDrawing() {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(2, 0x00F0);
   }
-  std::cout << model_.GetVertexes().size() << endl;
-  std::cout << model_.GetVertexes().data() << endl;
-  glDrawElements(GL_LINES, model_.GetFacets().size(), GL_UNSIGNED_INT,
-                 model_.GetFacets().data());
+  std::cout << "HERE fsize!" << endl;
+  std::cout << model_.GetFacets().size() << std::endl;
+  std::cout << "HERE fdata!" << endl;
+  std::cout << model_.GetFacets().data() << std::endl;
+  glDrawElements(GL_LINES, static_cast<int>(model_.GetFacets().size()),
+                 GL_UNSIGNED_INT, model_.GetFacets().data());
   if (edgeMode_ == 1) {
     glDisable(GL_LINE_STIPPLE);
   }
 }
 
 void GLWidget::setupPerspective() {
+  std::cout << "HERE mcoord!" << endl;
   double max_coord = model_.GetMaxCoordinate();
-  std::cout << model_.GetMaxCoordinate() << std::endl;
-  if (max_coord < 1) {
-    max_coord = 2;
-  }
+  // if (max_coord < 1) {
+  //   max_coord = 2;
+  // }
   GLdouble zNear = 0.001;  // Ближнее расстояние отсечения
   GLdouble zFar = max_coord * 5;  // Дальнее расстояние отсечения
 

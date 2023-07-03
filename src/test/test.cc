@@ -22,9 +22,9 @@ TEST(ParcerTest, GetFacetsTest) {
 }
 
 TEST(ParcerTest, GetMaxCoordinate) {
-  std::string filename = "./test/test.obj";
+  std::string filename = "./test/cube_3.obj";
   s21::Parcer parcer_(filename);
-  EXPECT_EQ(parcer_.GetMaxCoordinate(), 1);
+  EXPECT_EQ(parcer_.GetMaxCoordinate(), 0.5);
 }
 
 int main(int argc, char **argv) {
