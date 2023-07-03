@@ -1,6 +1,6 @@
 .PHONY: all install dvi dist tests gcov_report leaks valgrind clang clean
 
-CC=gcc
+CC=g++
 CFLAGS=-Wall -Werror -Wextra
 CPPFLAGS=-lstdc++ -std=c++17
 TEST_FLAGS:=$(CFLAGS) -g#-fsanitize=address -O1 -fno-omit-frame-pointer
@@ -9,8 +9,8 @@ GCOV_FLAGS?=--coverage#-fprofile-arcs -ftest-coverage
 LIBS=-lgtest
 VALGRIND_FLAGS=--trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --verbose
 
-PREF_SRC=./model
-SRC=$(wildcard $(PREF_SRC)/*.c)
+PREF_SRC=./Model/parcer
+SRC=$(wildcard $(PREF_SRC)/*.cc)
 
 # SRC=./model/model.cc
 
@@ -51,17 +51,17 @@ dist: clean
 
 test: clean
 ifeq ($(OS), Darwin)
-	$(CC) $(TEST_FLAGS) $(LIBS) $(CPPFLAGS) $(TEST_SRC) -o unit_test
+	$(CC) $(TEST_FLAGS) $(LIBS) $(CPPFLAGS) $(SRC) $(TEST_SRC) -o unit_test
 else
-	${CC} $(TEST_FLAGS) ${TEST_SRC} $(CPPFLAGS) -o unit_test $(LIBS) $(LINUX_FLAGS)
+	${CC} $(TEST_FLAGS) $(SRC) ${TEST_SRC} $(CPPFLAGS) -o unit_test $(LIBS) $(LINUX_FLAGS)
 endif
 	./unit_test
 
 gcov_report: clean
 ifeq ($(OS), Darwin)
-	$(CC) $(TEST_FLAGS) $(GCOV_FLAGS) $(LIBS) $(CPPFLAGS) $(TEST_SRC) -o gcov_report 
+	$(CC) $(TEST_FLAGS) $(GCOV_FLAGS) $(LIBS) $(CPPFLAGS) $(SRC) $(TEST_SRC) -o gcov_report 
 else
-	$(CC) $(TEST_FLAGS) $(GCOV_FLAGS) $(TEST_SRC) -o gcov_report $(LIBS) $(CPPFLAGS) $(LINUX_FLAGS)
+	$(CC) $(TEST_FLAGS) $(GCOV_FLAGS) $(SRC) $(TEST_SRC) -o gcov_report $(LIBS) $(CPPFLAGS) $(LINUX_FLAGS)
 endif
 	./gcov_report
 	lcov -t "stest" -o s21_test.info -c -d ./ --no-external
