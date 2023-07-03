@@ -27,39 +27,39 @@ namespace s21 {
     void RotateX::Calculate(std::vector<double>& data, long double change) {
         change = s21_degres_to_radians(change);
         long double y{}, z{};
-        for (auto i = start; i < end; i += 3) {
-            y = data[i + 1];
-            z = data[i + 2];
-            data[i + 1] = y * cosl(change) + z * sinl(change);
-            data[i + 2] = -y * sinl(change) + z * cosl(change);
+        for (auto i = data.begin() + 2; i < data.end(); i += 3) {
+            y = *(i + 1);
+            z = *(i + 2);
+            *(i + 1) = y * cosl(change) + z * sinl(change);
+            *(i + 2) = -y * sinl(change) + z * cosl(change);
         }
     }
 
     void RotateY::Calculate(std::vector<double>& data, long double change) {
         change = s21_degres_to_radians(change);
-        long double y{}, z{};
-        for (auto i = start; i < end; i += 3) {
-            y = data[i];
-            z = data[i + 2];
-            data[i] = x * cosl(change) + z * sinl(change);
-            data[i + 2] = -x * sinl(change) + z * cosl(change);
+        long double x{}, z{};
+        for (auto i = data.begin() + 2; i < data.end(); i += 3) {
+            x = *i;
+            z = *(i + 2);
+            *i = x * cosl(change) + z * sinl(change);
+            *(i + 2) = -x * sinl(change) + z * cosl(change);
         }
     }
 
     void RotateZ::Calculate(std::vector<double>& data, long double change) {
         change = s21_degres_to_radians(change);
-        long double y{}, z{};
-        for (auto i = start; i < end; i += 3) {
-            y = data[i];
-            z = data[i + 1];
-            data[i] = x * cosl(change) - y * sinl(change);
-            data[i + 1] = x * sinl(change) + y * cosl(change);
+        long double x{}, y{};
+        for (auto i = data.begin() + 2; i < data.end(); i += 3) {
+            x = *i;
+            y = *(i + 1);
+            *i = x * cosl(change) - y * sinl(change);
+            *(i + 1) = x * sinl(change) + y * cosl(change);
         }
     }
 
     void Scaling::Calculate(std::vector<double>& data, long double change) {
-        for (auto i = start; i < end; i += 3) {
-            data[i] *= change;
+        for (auto i = data.begin() + 2; i < data.end(); i += 3) {
+            *i *= change;
         }
     }
 
@@ -68,15 +68,4 @@ namespace s21 {
 
     }
 
-    long double Converter(long double change) {
-        return change * acos(-1) / 180.0;
-    }
-
-
 } // s21
-
-int main() {
-    std::cout << std::thread::hardware_concurrency() << std::endl;
-    return 0;
-}
-
