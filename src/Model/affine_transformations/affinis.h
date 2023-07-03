@@ -10,35 +10,46 @@
 
 namespace s21 {
 
-    using vec_iter = std::vector<double>::iterator;
-
-    class Move {
+    class MoveX {
     public:
-        void Calculate(vec_iter start, vec_iter end, const std::pair<int, int>& values);
-        ~Move(){};
+        void Calculate(std::vector<double>& data, long double change);
     };
 
-    class Rotate {
+    class MoveY {
     public:
-        void Calculate(vec_iter start, vec_iter end, const std::pair<int, int>& values);
-        ~Rotate(){};
+        void Calculate(std::vector<double>& data, long double change);
+    };
+
+    class MoveZ {
+    public:
+        void Calculate(std::vector<double>& data, long double change);
+    };
+
+
+    class RotateX {
+    public:
+        void Calculate(std::vector<double>& data, long double change);
+    };).
+
+    class RotateY {
+    public:
+        void Calculate(std::vector<double>& data, long double change);
+    };
+
+    class RotateZ {
+    public:
+        void Calculate(std::vector<double>& data, long double change);
     };
 
     class Scaling {
     public:
-        void Calculate(vec_iter start, vec_iter end, const std::pair<int, int>& values);
-        ~Scaling(){};
+        void Calculate(std::vector<double>& data, long double change);
     };
 
     template <class Operation>
     class Affinis : public Operation {
     public:
-        Affinis(std::size_t size);
-        void MakeCalculate(std::vector<double>& data, const std::pair<int, int>& values);
-
-    private:
-        std::vector<std::thread> threads_pool_;
-        std::size_t min_thread_elem_;
+        void MakeCalculate(std::vector<double>& data, long double change);
     };
 
 } // s21

@@ -25,13 +25,6 @@ namespace s21 {
         std::vector<double> vertexes_{};
         std::vector<double> facets_{};
         bool is_valid_{};
-
-        int prev_pos_x_{};
-        int prev_pos_y_{};
-        int prev_pos_z_{};
-        int prev_angle_x_{};
-        int prev_angle_y_{};
-        int prev_angle_z_{};
     };
 
 } // s21

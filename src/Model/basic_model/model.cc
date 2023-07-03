@@ -15,6 +15,4 @@ namespace s21 {
         bool is_valid_ = p.IsValid();
     };
 
-
-
 } // s21
