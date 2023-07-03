@@ -9,10 +9,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ./model/common/s21_create_matrix.c \
-    ./model/common/s21_remove_matrix.c \
-    ./model/s21_parser.c \
-    ./model/s21_transform.c \
     ./controller/controller.cc \
     ./Model/basic_model/model.cc \
     ./Model/parcer/parcer.cc \
@@ -21,8 +17,6 @@ SOURCES += \
     ./view/app/mainwindow.cc
 
 HEADERS += \
-    ./model/common/s21_matrix.h \
-    ./model/s21_3DViewer_v1.h \
     ./controller/controller.h \
     ./Model/basic_model/model.h \
     ./Model/parcer/parcer.h \

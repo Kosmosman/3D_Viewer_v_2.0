@@ -22,7 +22,7 @@ SRC=./Model/**/*.cc
 # PREF_TEST_SRC=./model/tests
 # TEST_SRC=$(wildcard $(PREF_TEST_SRC)/*.c)
 
-TEST_SRC=./Model/test/test.cc
+TEST_SRC=./test/test.cc
 
 OS := $(shell uname -s)
 USERNAME=$(shell whoami)

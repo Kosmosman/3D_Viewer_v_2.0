@@ -25,7 +25,6 @@ class GLWidget : public QOpenGLWidget {
   GLWidget(QWidget *parent = nullptr);
   ~GLWidget();
   s21::Model model_;
-  // data_t data = {0, 0, NULL, 0.0, {0, 0, 0}, NULL, NULL, 0, NULL};
   void initModel(std::string &filename);
 
   QColor getBackgroundColor() { return backgroundColor_; }

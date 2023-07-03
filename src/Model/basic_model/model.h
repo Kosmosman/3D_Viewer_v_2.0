@@ -12,6 +12,7 @@ namespace s21 {
 
 class Model {
  public:
+  Model(){};
   explicit Model(std::string filename);
   double GetMaxCoordinate() const noexcept { return max_coordinate_; };
   std::vector<double> GetVertexes() const noexcept { return vertexes_; };
