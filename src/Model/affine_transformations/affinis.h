@@ -10,19 +10,25 @@
 
 namespace s21 {
 
-class MoveX {
+class Move {
  public:
-  void Calculate(std::vector<double>& data, long double change);
+  virtual void Calculate(std::vector<double>& data, long double change) = 0;
+  virtual ~Move(){};
 };
 
-class MoveY {
+class MoveX : public Move {
  public:
-  void Calculate(std::vector<double>& data, long double change);
+  void Calculate(std::vector<double>& data, long double change) override;
 };
 
-class MoveZ {
+class MoveY : public Move {
  public:
-  void Calculate(std::vector<double>& data, long double change);
+  void Calculate(std::vector<double>& data, long double change) override;
+};
+
+class MoveZ : public Move {
+ public:
+  void Calculate(std::vector<double>& data, long double change) override;
 };
 
 class RotateX {
@@ -30,9 +36,14 @@ class RotateX {
   void Calculate(std::vector<double>& data, long double change);
 };
 
-class RotateY {
+class Rotate {
+  virtual void Calculate(std::vector<double>& data, long double change) = 0;
+  virtual ~Rotate(){};
+};
+
+class RotateX : public Rotate {
  public:
-  void Calculate(std::vector<double>& data, long double change);
+  void Calculate(std::vector<double>& data, long double change) override;
 };
 
 class RotateZ {

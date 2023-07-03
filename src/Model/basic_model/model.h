@@ -17,6 +17,7 @@ class Model {
   std::vector<double> GetVertexes() const noexcept { return vertexes_; };
   std::vector<double> GetFacets() const noexcept { return facets_; };
   bool IsValid() const noexcept { return is_valid_; };
+  Model& operator()(std::string file);
 
  private:
   std::string filename_{};
@@ -24,6 +25,8 @@ class Model {
   std::vector<double> vertexes_{};
   std::vector<double> facets_{};
   bool is_valid_{};
+
+  void SetData();
 };
 
 }  // namespace s21

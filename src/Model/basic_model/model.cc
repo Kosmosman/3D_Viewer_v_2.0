@@ -8,12 +8,20 @@
 
 namespace s21 {
 
-Model::Model(std::string file) : filename_{file} {
-  Parcer p(file);
+Model::Model(std::string file) : filename_{file} { SetData(); };
+
+void Model::SetData() {
+  Parcer p(filename_);
   max_coordinate_ = p.GetMaxCoordinate();
   vertexes_ = p.GetVertexes();
   facets_ = p.GetFacets();
   is_valid_ = p.IsValid();
 };
+
+Model& Model::operator()(std::string file) {
+  filename_ = file;
+  SetData();
+  return *this;
+}
 
 }  // namespace s21
