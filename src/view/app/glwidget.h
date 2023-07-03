@@ -12,19 +12,16 @@
 #include <algorithm>
 #include <cstring>
 
-#include "../../Model/basic_model/model.h"
+#include "../../controller/controller.h"
 
 using namespace std;
-// extern "C" {
-// #include "../../model/s21_3DViewer_v1.h"
-// }
 
 class GLWidget : public QOpenGLWidget {
   Q_OBJECT
  public:
   GLWidget(QWidget *parent = nullptr);
   ~GLWidget();
-  s21::Model model_;
+  s21::Controller controller_;
 
   QColor getBackgroundColor() { return backgroundColor_; }
   QColor getEdgeColor() { return edgeColor_; }
