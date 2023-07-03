@@ -9,8 +9,10 @@ GCOV_FLAGS?=--coverage#-fprofile-arcs -ftest-coverage
 LIBS=-lgtest
 VALGRIND_FLAGS=--trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --verbose
 
-PREF_SRC=./Model/parcer
-SRC=$(wildcard $(PREF_SRC)/*.cc)
+# PREF_SRC=./Model/parcer
+# SRC=$(wildcard $(PREF_SRC)/*.cc)
+
+SRC=./Model/**/*.cc
 
 # SRC=./model/model.cc
 
