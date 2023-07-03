@@ -1,28 +1,17 @@
 .PHONY: all install dvi dist tests gcov_report leaks valgrind clang clean
 
-CC=g++
-CFLAGS=-Wall -Werror -Wextra
-CPPFLAGS=-lstdc++ -std=c++17
-TEST_FLAGS:=$(CFLAGS) -g#-fsanitize=address -O1 -fno-omit-frame-pointer
-LINUX_FLAGS =-lrt -lpthread -lm -lsubunit
-GCOV_FLAGS?=--coverage#-fprofile-arcs -ftest-coverage
+CC=gcc
+CXXFLAGS=-Wall -Werror -Wextra -lstdc++ -std=c++17
+LDFLAGS =-lrt -lpthread -lm -lsubunit
 LIBS=-lgtest
-VALGRIND_FLAGS=--trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --verbose
 
-# PREF_SRC=./Model/parcer
-# SRC=$(wildcard $(PREF_SRC)/*.cc)
+TEST_FLAGS:=-g#-fsanitize=address -O1 -fno-omit-frame-pointer
+GCOV_FLAGS?=--coverage#-fprofile-arcs -ftest-coverage
+VALGRIND_FLAGS=--trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --verbose
 
 SRC=./Model/**/*.cc
 
-# SRC=./model/model.cc
-
-# PREF_LIB_SRC=./model/common
-# LIB_SRC=$(wildcard $(PREF_LIB_SRC)/*.c)
-
-# PREF_TEST_SRC=./model/tests
-# TEST_SRC=$(wildcard $(PREF_TEST_SRC)/*.c)
-
-TEST_SRC=./test/test.cc
+TEST_SRC=./test.cc
 
 OS := $(shell uname -s)
 USERNAME=$(shell whoami)
@@ -53,23 +42,22 @@ dist: clean
 
 test: clean
 ifeq ($(OS), Darwin)
-	$(CC) $(TEST_FLAGS) $(LIBS) $(CPPFLAGS) $(SRC) $(TEST_SRC) -o unit_test
+	${CC} $(CXXFLAGS) $(LIBS) $(SRC) $(TEST_SRC) -o unit_test
 else
-	${CC} $(TEST_FLAGS) $(SRC) ${TEST_SRC} $(CPPFLAGS) -o unit_test $(LIBS) $(LINUX_FLAGS)
+	${CC} $(CXXFLAGS) $(SRC) ${TEST_SRC} -o unit_test $(LIBS) $(LDFLAGS)
 endif
 	./unit_test
 
 gcov_report: clean
 ifeq ($(OS), Darwin)
-	$(CC) $(TEST_FLAGS) $(GCOV_FLAGS) $(LIBS) $(CPPFLAGS) $(SRC) $(TEST_SRC) -o gcov_report 
+	${CC} $(CXXFLAGS) $(GCOV_FLAGS) $(LIBS) $(SRC) $(TEST_SRC) -o gcov_report 
 else
-	$(CC) $(TEST_FLAGS) $(GCOV_FLAGS) $(SRC) $(TEST_SRC) -o gcov_report $(LIBS) $(CPPFLAGS) $(LINUX_FLAGS)
+	${CC} $(CXXFLAGS) $(GCOV_FLAGS) $(SRC) $(TEST_SRC) -o gcov_report $(LIBS) $(LDFLAGS)
 endif
 	./gcov_report
 	lcov -t "stest" -o s21_test.info -c -d ./ --no-external
 	genhtml -o report s21_test.info
 	$(OPEN_CMD) ./report/index.html
-
 
 clean:
 	rm -rf *.dSYM
@@ -89,7 +77,7 @@ leaks: tests
 	leaks -atExit -- ./unit_test
 
 valgrind: clean
-	${CC} $(TEST_FLAGS) ${TEST_SRC} $(SRC) $(CPPFLAGS) -o valgrind_test $(LIBS) $(LINUX_FLAGS)
+	${CC} $(CXXFLAGS) ${TEST_SRC} $(SRC) -o valgrind_test $(LIBS) $(LDFLAGS)
 	CK_FORK=no valgrind $(VALGRIND_FLAGS) --log-file=RESULT_VALGRIND.txt ./valgrind_test
 
 clang:
