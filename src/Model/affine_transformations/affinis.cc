@@ -4,9 +4,6 @@
 
 #include "affinis.h"
 
-#include <cmath>
-#include <iostream>
-
 namespace s21 {
 
     void MoveX::Calculate(std::vector<double>& data, long double change) {
@@ -25,7 +22,7 @@ namespace s21 {
     }
 
     void RotateX::Calculate(std::vector<double>& data, long double change) {
-        change = s21_degres_to_radians(change);
+        change = Converter(change);
         long double y{}, z{};
         for (auto i = data.begin() + 2; i < data.end(); i += 3) {
             y = *(i + 1);
@@ -36,7 +33,7 @@ namespace s21 {
     }
 
     void RotateY::Calculate(std::vector<double>& data, long double change) {
-        change = s21_degres_to_radians(change);
+        change = Converter(change);
         long double x{}, z{};
         for (auto i = data.begin() + 2; i < data.end(); i += 3) {
             x = *i;
@@ -47,7 +44,7 @@ namespace s21 {
     }
 
     void RotateZ::Calculate(std::vector<double>& data, long double change) {
-        change = s21_degres_to_radians(change);
+        change = Converter(change);
         long double x{}, y{};
         for (auto i = data.begin() + 2; i < data.end(); i += 3) {
             x = *i;
@@ -64,8 +61,7 @@ namespace s21 {
     }
 
     template <class Operator>
-    void Affinis<Operator>::MakeCalculate(std::vector<double>& data, long double change) {
-
+    void AffinisOperation<Operator>::MakeCalculate(std::vector<double>& data, long double change) {
+        Calculate(data, change);
     }
-
 } // s21

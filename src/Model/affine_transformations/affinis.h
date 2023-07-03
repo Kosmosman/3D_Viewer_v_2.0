@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <utility>
+#include <cmath>
 
 namespace s21 {
 
@@ -31,10 +32,11 @@ namespace s21 {
         void Calculate(std::vector<double>& data, long double change) override;
     };
 
-
     class Rotate {
+    public:
         virtual void Calculate(std::vector<double>& data, long double change) = 0;
         virtual ~Rotate(){};
+        long double Converter(long double angle) { return angle * acos(-1) / 180.0; }
     };
 
     class RotateX : public Rotate {
@@ -42,14 +44,14 @@ namespace s21 {
         void Calculate(std::vector<double>& data, long double change) override;
     };
 
-    class RotateY {
+    class RotateY : public Rotate {
     public:
-        void Calculate(std::vector<double>& data, long double change);
+        void Calculate(std::vector<double>& data, long double change) override;
     };
 
-    class RotateZ {
+    class RotateZ : public Rotate {
     public:
-        void Calculate(std::vector<double>& data, long double change);
+        void Calculate(std::vector<double>& data, long double change) override;
     };
 
     class Scaling {
@@ -58,7 +60,7 @@ namespace s21 {
     };
 
     template <class Operation>
-    class Affinis : public Operation {
+    class AffinisOperation : public Operation {
     public:
         void MakeCalculate(std::vector<double>& data, long double change);
     };
