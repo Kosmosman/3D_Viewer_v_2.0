@@ -91,7 +91,7 @@ void GLWidget::pointDrawing() {
       glEnable(GL_POINT_SMOOTH);
     }
     std::cout << "HERE vsize!" << endl;
-    glDrawArrays(GL_POINTS, 1, model_.GetVertexes().size());
+    glDrawArrays(GL_POINTS, 1, model_.GetVertexes().size() / 3);
     if (pointMode_ == 1) {
       glDisable(GL_POINT_SMOOTH);
     }
@@ -108,8 +108,8 @@ void GLWidget::edgeDrawing() {
   std::cout << model_.GetFacets().size() << std::endl;
   std::cout << "HERE fdata!" << endl;
   std::cout << model_.GetFacets().data() << std::endl;
-  glDrawElements(GL_LINES, static_cast<int>(model_.GetFacets().size()),
-                 GL_UNSIGNED_INT, model_.GetFacets().data());
+  // glDrawElements(GL_LINES, model_.GetFacets().size(), GL_UNSIGNED_INT,
+  //                model_.GetFacets().data());
   if (edgeMode_ == 1) {
     glDisable(GL_LINE_STIPPLE);
   }
