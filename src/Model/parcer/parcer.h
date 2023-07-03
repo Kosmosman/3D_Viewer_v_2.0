@@ -11,8 +11,8 @@ namespace s21 {
 class Parcer {
  public:
   explicit Parcer(std::string str);
-  Parcer(const Parcer &other) = delete;
-  Parcer &operator=(const Parcer &other) = delete;
+  Parcer(const Parcer& other) = delete;
+  Parcer& operator=(const Parcer& other) = delete;
 
   double GetMaxCoordinate() const noexcept { return max_coordinate_; };
   std::vector<double> GetVertexes() const noexcept { return vertexes_; };
@@ -31,8 +31,8 @@ class Parcer {
   };
   void Parce();
   long GetFileSize(std::string str);
-  void ReadVertexes(std::stringstream &ss);
-  void ReadFacets(std::stringstream &ss);
+  void ReadVertexes(std::stringstream& ss);
+  void ReadFacets(std::stringstream& ss);
 };
 
 };  // namespace s21
