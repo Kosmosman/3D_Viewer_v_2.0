@@ -40,17 +40,13 @@ void GLWidget::resizeGL(int w, int h) {
 }
 
 void GLWidget::paintGL() {
-  if (!model_.GetVertexes().empty()) {
-    glClearColor(backgroundColor_.redF(), backgroundColor_.greenF(),
-                 backgroundColor_.blueF(), backgroundColor_.alphaF());
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    setupPerspective();
-    Drawing();
-    //  } else {
-    //    s21_remove_data(&data);
-  }
+  glClearColor(backgroundColor_.redF(), backgroundColor_.greenF(),
+               backgroundColor_.blueF(), backgroundColor_.alphaF());
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  setupPerspective();
+  Drawing();
 }
 
 void GLWidget::mousePressEvent(QMouseEvent *event) {
