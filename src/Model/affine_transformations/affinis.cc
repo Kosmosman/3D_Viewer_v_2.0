@@ -57,9 +57,9 @@ void RotateZ::Calculate(std::vector<double>& data, long double change) {
 //   }
 // }
 
-template <class Operator>
-void AffinisOperation<Operator>::MakeCalculate(std::vector<double>& data,
-                                               long double change) {
-  Calculate(data, change);
-}
+// template <class Operator>
+// void AffinisOperation<Operator>::MakeCalculate(std::vector<double>& data,
+//                                                long double change) {
+//   Calculate(data, change);
+// }
 }  // namespace s21
