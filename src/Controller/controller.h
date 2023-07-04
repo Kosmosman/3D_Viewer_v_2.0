@@ -13,7 +13,7 @@ namespace s21 {
 
     class Controller {
     public:
-        Controller() : model_{} {};
+        Controller() = default;
         void InitModel(std::string file) { model_(file); };
         double MaxCoordinate() { return model_.GetMaxCoordinate(); };
         double* Vertexes() { return model_.GetVertexes().data; };
