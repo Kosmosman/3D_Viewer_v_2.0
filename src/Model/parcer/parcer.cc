@@ -35,11 +35,10 @@ void Parcer::Parce() {
     ss >> str;
     try {
       if (str == "v") {
-          ReadVertexes(ss);
-      }
-      else if (str == "f") {
-          ReadFacets(ss);
-          ++count_of_facets_;
+        ReadVertexes(ss);
+      } else if (str == "f") {
+        ReadFacets(ss);
+        ++count_of_facets_;
       }
     } catch (...) {
       is_valid_ = false;

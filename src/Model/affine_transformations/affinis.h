@@ -5,66 +5,68 @@
 #ifndef SRC_AFFINIS_H
 #define SRC_AFFINIS_H
 
-#include <vector>
-#include <utility>
 #include <cmath>
+#include <utility>
+#include <vector>
 
 namespace s21 {
 
-    class Move {
-    public:
-        virtual void Calculate(std::vector<double>& data, long double change) = 0;
-        virtual ~Move(){};
-    };
+class Move {
+ public:
+  virtual void Calculate(std::vector<double>& data, long double change) = 0;
+  virtual ~Move() {}
+};
 
-    class MoveX : public Move {
-    public:
-        void Calculate(std::vector<double>& data, long double change) override;
-    };
+class MoveX : public Move {
+ public:
+  void Calculate(std::vector<double>& data, long double change) override;
+};
 
-    class MoveY : public Move {
-    public:
-        void Calculate(std::vector<double>& data, long double change) override;
-    };
+class MoveY : public Move {
+ public:
+  void Calculate(std::vector<double>& data, long double change) override;
+};
 
-    class MoveZ : public Move {
-    public:
-        void Calculate(std::vector<double>& data, long double change) override;
-    };
+class MoveZ : public Move {
+ public:
+  void Calculate(std::vector<double>& data, long double change) override;
+};
 
-    class Rotate {
-    public:
-        virtual void Calculate(std::vector<double>& data, long double change) = 0;
-        virtual ~Rotate(){};
-        long double Converter(long double angle) { return angle * acos(-1) / 180.0; }
-    };
+class Rotate {
+ public:
+  virtual void Calculate(std::vector<double>& data, long double change) = 0;
+  virtual ~Rotate() {}
+  long double Converter(long double angle) { return angle * acos(-1) / 180.0; }
+};
 
-    class RotateX : public Rotate {
-    public:
-        void Calculate(std::vector<double>& data, long double change) override;
-    };
+class RotateX : public Rotate {
+ public:
+  void Calculate(std::vector<double>& data, long double change) override;
+};
 
-    class RotateY : public Rotate {
-    public:
-        void Calculate(std::vector<double>& data, long double change) override;
-    };
+class RotateY : public Rotate {
+ public:
+  void Calculate(std::vector<double>& data, long double change) override;
+};
 
-    class RotateZ : public Rotate {
-    public:
-        void Calculate(std::vector<double>& data, long double change) override;
-    };
+class RotateZ : public Rotate {
+ public:
+  void Calculate(std::vector<double>& data, long double change) override;
+};
 
-    class Scaling {
-    public:
-        void Calculate(std::vector<double>& data, long double change);
-    };
+class Scaling {
+ public:
+  void Calculate(std::vector<double>& data, long double change);
+};
 
-    template <class Operation>
-    class AffinisOperation : public Operation {
-    public:
-        void MakeCalculate(std::vector<double>& data, long double change);
-    };
+template <class Operation>
+class AffinisOperation : public Operation {
+ public:
+  void MakeCalculate(std::vector<double>& data, int change) {
+    this->Calculate(data, static_cast<long double>(change));
+  }
+};
 
-} // s21
+}  // namespace s21
 
-#endif //SRC_AFFINIS_H
+#endif  // SRC_AFFINIS_H
