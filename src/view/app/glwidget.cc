@@ -106,7 +106,7 @@ void GLWidget::edgeDrawing() {
   std::cout << "HERE fsize!" << endl;
   std::cout << controller_.Facets() << std::endl;
   std::cout << "HERE fdata!" << endl;
-  std::cout << controller_.CountOfFacetsLines() << std::endl;
+  std::cout << controller_.CountOfFacets() << std::endl;
   // glDrawElements(GL_LINES, controller_.CountOfFacetsLines(), GL_DOUBLE,
   //                controller_.Facets());
   if (edgeMode_ == 1) {

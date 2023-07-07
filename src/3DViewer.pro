@@ -9,15 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ./controller/controller.cc \
+    ./Model/affine_transformations/affinis.cc \
     ./Model/basic_model/model.cc \
     ./Model/parcer/parcer.cc \
-    ./view/app/glwidget.cc \
     ./main.cc \
+    ./view/app/glwidget.cc \
     ./view/app/mainwindow.cc
 
 HEADERS += \
     ./controller/controller.h \
+    ./Model/affine_transformations/affinis.h \
     ./Model/basic_model/model.h \
     ./Model/parcer/parcer.h \
     ./view/app/glwidget.h \

@@ -412,7 +412,7 @@ void MainWindow::fileHandling() {
         setWindowTitle(fileName);
         ui_->statusBar->showMessage("Path: " + fileName);
         ui_->number_of_facets->setText(
-            QString::number(ui_->OGLWidget->controller_.CountOfFacetsLines()));
+            QString::number(ui_->OGLWidget->controller_.CountOfFacets()));
         ui_->number_of_vertices->setText(
             QString::number(ui_->OGLWidget->controller_.CountOfVertexes()));
         defaultScrollbars();
