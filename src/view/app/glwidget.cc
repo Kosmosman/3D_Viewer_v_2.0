@@ -2,16 +2,7 @@
 
 #include <iostream>
 
-GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent) {
-  // std::string filename =
-  //     "/home/user/Documents/CPP4_3DViewer_v2.0-1/src/obj/cube.obj";
-  // std::cout << controller_.Vertexes() << std::endl;
-  // std::cout << controller_.CountOfVertexes() << std::endl;
-  // std::cout << controller_.Facets() << std::endl;
-  // std::cout << controller_.CountOfFacetsLines() << std::endl;
-  // std::cout << controller_.MaxCoordinate() << std::endl;
-  initSettings();
-}
+GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent) { initSettings(); }
 
 GLWidget::~GLWidget() {}
 
@@ -64,8 +55,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event) {
     setYRotation(angle_y_ + 180);
   } else if (event->buttons() == Qt::LeftButton) {
     QPoint diff = event->pos() - m_mousePosition_;
-    shift_x += (1 / M_PI * (diff.x()));
-    shift_y += (1 / M_PI * (diff.y()));
+    shift_x += diff.x();
+    shift_y += diff.y();
     m_mousePosition_ = event->pos();
     setXTranslate(shift_x);
     setYTranslate(-shift_y);
@@ -75,7 +66,6 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void GLWidget::Drawing() {
-  std::cout << "HERE 1 vdata!" << endl;
   glVertexPointer(3, GL_DOUBLE, 0, controller_.Vertexes());
   glEnableClientState(GL_VERTEX_ARRAY);
   pointDrawing();
@@ -89,7 +79,6 @@ void GLWidget::pointDrawing() {
     if (pointMode_ == 1) {
       glEnable(GL_POINT_SMOOTH);
     }
-    std::cout << "HERE vsize!" << endl;
     glDrawArrays(GL_POINTS, 1, controller_.CountOfVertexes());
     if (pointMode_ == 1) {
       glDisable(GL_POINT_SMOOTH);
@@ -103,25 +92,19 @@ void GLWidget::edgeDrawing() {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(2, 0x00F0);
   }
-  std::cout << "HERE fsize!" << endl;
-  std::cout << controller_.Facets() << std::endl;
-  std::cout << "HERE fdata!" << endl;
-  std::cout << controller_.CountOfFacets() << std::endl;
-  // glDrawElements(GL_LINES, controller_.CountOfFacetsLines(), GL_DOUBLE,
-  //                controller_.Facets());
+  glDrawElements(GL_LINES, controller_.CountOfFacets(), GL_UNSIGNED_INT,
+                 controller_.Facets());
   if (edgeMode_ == 1) {
     glDisable(GL_LINE_STIPPLE);
   }
 }
 
 void GLWidget::setupPerspective() {
-  std::cout << "HERE mcoord!" << endl;
-  double max_coord = controller_.MaxCoordinate();
-  // if (max_coord < 1) {
-  //   max_coord = 2;
-  // }
+  if (max_coordinate_ < 1) {
+    max_coordinate_ = 2;
+  }
   GLdouble zNear = 0.001;  // Ближнее расстояние отсечения
-  GLdouble zFar = max_coord * 5;  // Дальнее расстояние отсечения
+  GLdouble zFar = max_coordinate_ * 5;  // Дальнее расстояние отсечения
 
   if (projectionMode_ == 0) {  // Central/Perspective projection
 
@@ -131,53 +114,53 @@ void GLWidget::setupPerspective() {
 
     glFrustum(-fW, fW, -fH, fH, zNear,
               zFar);  // Устанавливает усеченный конус в режим перспективы
-    glTranslatef(0, 0, -max_coord);
+    glTranslatef(0, 0, -max_coordinate_);
   } else {  // Parallel/Orthographic projection
-    glOrtho(-max_coord, max_coord, -max_coord, max_coord, -max_coord, zFar);
+    glOrtho(-max_coordinate_, max_coordinate_, -max_coordinate_,
+            max_coordinate_, -max_coordinate_, zFar);
   }
   glTranslated(0, 0, -3);
 }
 
 void GLWidget::setScale(int scale) {
-  //  s21_scale(&data, (long double)scale / prev_scale);
-  prev_scale = (long double)scale;
+  controller_.MakeScaling(scale);
   update();
 }
 
 void GLWidget::setXTranslate(int value) {
   value -= 50;
-  //  s21_move_x(&data, 0.05 * (value - a_prev_x));
+  controller_.MakeMoveX(value - a_prev_x);
   a_prev_x = value;
   update();
 }
 void GLWidget::setYTranslate(int value) {
   value -= 50;
-  //  s21_move_y(&data, 0.05 * (value - a_prev_y));
+  controller_.MakeMoveY(value - a_prev_y);
   a_prev_y = value;
   update();
 }
 void GLWidget::setZTranslate(int value) {
   value -= 50;
-  //  s21_move_z(&data, 0.05 * (value - a_prev_z));
+  controller_.MakeMoveZ(value - a_prev_z);
   a_prev_z = value;
   update();
 }
 
 void GLWidget::setXRotation(int angle) {
   angle -= 180;
-  //  s21_rotate_x(&data, -(angle - angle_prev_x));
+  controller_.MakeRotateX(angle - angle_prev_x);
   angle_prev_x = angle;
   update();
 }
 void GLWidget::setYRotation(int angle) {
   angle -= 180;
-  //  s21_rotate_y(&data, angle - angle_prev_y);
+  controller_.MakeRotateY(angle - angle_prev_y);
   angle_prev_y = angle;
   update();
 }
 void GLWidget::setZRotation(int angle) {
   angle -= 180;
-  //  s21_rotate_z(&data, angle - angle_prev_z);
+  controller_.MakeRotateZ(angle - angle_prev_z);
   angle_prev_z = angle;
   update();
 }

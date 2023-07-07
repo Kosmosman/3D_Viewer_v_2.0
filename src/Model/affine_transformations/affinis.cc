@@ -1,12 +1,14 @@
-// //
-// // Created by Joaquina Daeron on 6/21/23.
-// //
-
+//
+// Created by Joaquina Daeron on 6/21/23.
+//
 #include "affinis.h"
+
+#include <iostream>
 
 namespace s21 {
 
 void MoveX::Calculate(std::vector<double>& data, long double change) {
+  std::cout << change << std::endl;
   for (auto i = data.begin(); i < data.end(); i += 3) *i += change;
 }
 
@@ -21,7 +23,7 @@ void MoveZ::Calculate(std::vector<double>& data, long double change) {
 void RotateX::Calculate(std::vector<double>& data, long double change) {
   change = Converter(change);
   long double y{}, z{};
-  for (auto i = data.begin() + 2; i < data.end(); i += 3) {
+  for (auto i = data.begin(); i < data.end(); i += 3) {
     y = *(i + 1);
     z = *(i + 2);
     *(i + 1) = y * cosl(change) + z * sinl(change);
@@ -32,7 +34,7 @@ void RotateX::Calculate(std::vector<double>& data, long double change) {
 void RotateY::Calculate(std::vector<double>& data, long double change) {
   change = Converter(change);
   long double x{}, z{};
-  for (auto i = data.begin() + 2; i < data.end(); i += 3) {
+  for (auto i = data.begin(); i < data.end(); i += 3) {
     x = *i;
     z = *(i + 2);
     *i = x * cosl(change) + z * sinl(change);
@@ -43,7 +45,7 @@ void RotateY::Calculate(std::vector<double>& data, long double change) {
 void RotateZ::Calculate(std::vector<double>& data, long double change) {
   change = Converter(change);
   long double x{}, y{};
-  for (auto i = data.begin() + 2; i < data.end(); i += 3) {
+  for (auto i = data.begin(); i < data.end(); i += 3) {
     x = *i;
     y = *(i + 1);
     *i = x * cosl(change) - y * sinl(change);

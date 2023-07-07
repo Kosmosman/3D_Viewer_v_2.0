@@ -21,7 +21,13 @@ class GLWidget : public QOpenGLWidget {
  public:
   GLWidget(QWidget *parent = nullptr);
   ~GLWidget();
-  s21::Controller controller_;
+
+  int GetCountOfFacets() { return controller_.CountOfFacets(); };
+  int GetCountOfVertexes() { return controller_.CountOfVertexes(); };
+  void InitModel(std::string file) {
+    controller_.InitModel(file);
+    max_coordinate_ = controller_.MaxCoordinate();
+  };
 
   QColor getBackgroundColor() { return backgroundColor_; }
   QColor getEdgeColor() { return edgeColor_; }
@@ -51,9 +57,12 @@ class GLWidget : public QOpenGLWidget {
   void setScale(int scale);
 
  private:
+  s21::Controller controller_;
   QColor backgroundColor_;
   QColor edgeColor_;
   QColor dotColor_;
+
+  double max_coordinate_;
 
   int projectionMode_;
   int pointMode_;

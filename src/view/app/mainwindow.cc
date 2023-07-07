@@ -407,14 +407,13 @@ void MainWindow::fileHandling() {
       fileNames = fileDialog->selectedFiles();
       if (fileNames.size() > 0) {
         QString fileName = fileNames.at(0);
-        ui_->OGLWidget->controller_.InitModel(fileName.toStdString());
-        printf("ok\n");
+        ui_->OGLWidget->InitModel(fileName.toStdString());
         setWindowTitle(fileName);
         ui_->statusBar->showMessage("Path: " + fileName);
         ui_->number_of_facets->setText(
-            QString::number(ui_->OGLWidget->controller_.CountOfFacets()));
+            QString::number(ui_->OGLWidget->GetCountOfFacets()));
         ui_->number_of_vertices->setText(
-            QString::number(ui_->OGLWidget->controller_.CountOfVertexes()));
+            QString::number(ui_->OGLWidget->GetCountOfVertexes()));
         defaultScrollbars();
       }
     }

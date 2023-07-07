@@ -16,7 +16,7 @@ class Model {
   explicit Model(std::string filename);
   double GetMaxCoordinate() const noexcept { return max_coordinate_; };
   std::vector<double>& GetVertexes() noexcept { return vertexes_; };
-  std::vector<double>& GetFacets() noexcept { return facets_; };
+  std::vector<unsigned int>& GetFacets() noexcept { return facets_; };
   std::size_t GetCountOfVertex() const noexcept { return count_of_facets_; };
   bool IsValid() const noexcept { return is_valid_; };
   Model& operator()(std::string file);
@@ -26,7 +26,7 @@ class Model {
   double max_coordinate_{};
   std::size_t count_of_facets_{};
   std::vector<double> vertexes_{};
-  std::vector<double> facets_{};
+  std::vector<unsigned int> facets_{};
   bool is_valid_{};
 
   void SetData();

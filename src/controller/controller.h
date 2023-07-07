@@ -18,9 +18,10 @@ class Controller {
   void InitModel(std::string file) { model_(file); };
   double MaxCoordinate() { return model_.GetMaxCoordinate(); };
   double* Vertexes() { return model_.GetVertexes().data(); };
-  double* Facets() { return model_.GetFacets().data(); };
+  unsigned int* Facets() { return model_.GetFacets().data(); };
   int CountOfFacets() { return model_.GetCountOfVertex(); };
   int CountOfVertexes() { return model_.GetVertexes().size() / 3; };
+
   void MakeMoveX(int value) {
     AffinisOperation<MoveX> op;
     op.MakeCalculate(model_.GetVertexes(), value);
