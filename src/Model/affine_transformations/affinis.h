@@ -14,7 +14,7 @@ namespace s21 {
 class Move {
  public:
   virtual void Calculate(std::vector<double>& data, long double change) = 0;
-  virtual ~Move(){};
+  virtual ~Move() {}
 };
 
 class MoveX : public Move {
@@ -35,7 +35,7 @@ class MoveZ : public Move {
 class Rotate {
  public:
   virtual void Calculate(std::vector<double>& data, long double change) = 0;
-  virtual ~Rotate(){};
+  virtual ~Rotate() {}
   long double Converter(long double angle) { return angle * acos(-1) / 180.0; }
 };
 
@@ -54,17 +54,19 @@ class RotateZ : public Rotate {
   void Calculate(std::vector<double>& data, long double change) override;
 };
 
-template <class Operation>
-class Affinis : public Operation {
+class Scaling {
  public:
-  void MakeCalculate(std::vector<double>& data, long double change);
+  void Calculate(std::vector<double>& data, long double change);
 };
 
 template <class Operation>
 class AffinisOperation : public Operation {
  public:
-  void MakeCalculate(std::vector<double>& data, long double change);
+  void MakeCalculate(std::vector<double>& data, int change) {
+    this->Calculate(data, static_cast<long double>(change));
+  }
 };
+
 }  // namespace s21
 
 #endif  // SRC_AFFINIS_H

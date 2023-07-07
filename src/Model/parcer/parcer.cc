@@ -34,10 +34,12 @@ void Parcer::Parce() {
     std::stringstream ss(str);
     ss >> str;
     try {
-      if (str == "v")
+      if (str == "v") {
         ReadVertexes(ss);
-      else if (str == "f")
+      } else if (str == "f") {
         ReadFacets(ss);
+        ++count_of_facets_;
+      }
     } catch (...) {
       is_valid_ = false;
       std::cout << "Incorrect data" << std::endl;

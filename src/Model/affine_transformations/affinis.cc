@@ -51,15 +51,10 @@ void RotateZ::Calculate(std::vector<double>& data, long double change) {
   }
 }
 
-// void Scaling::Calculate(std::vector<double>& data, long double change) {
-//   for (auto i = data.begin() + 2; i < data.end(); i += 3) {
-//     *i *= change;
-//   }
-// }
+void Scaling::Calculate(std::vector<double>& data, long double change) {
+  for (auto i = data.begin() + 2; i < data.end(); i += 3) {
+    *i *= change;
+  }
+}
 
-// template <class Operator>
-// void AffinisOperation<Operator>::MakeCalculate(std::vector<double>& data,
-//                                                long double change) {
-//   Calculate(data, change);
-// }
 }  // namespace s21

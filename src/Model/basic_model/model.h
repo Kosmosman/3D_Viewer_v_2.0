@@ -12,17 +12,19 @@ namespace s21 {
 
 class Model {
  public:
-  Model(){};
+  Model() = default;
   explicit Model(std::string filename);
   double GetMaxCoordinate() const noexcept { return max_coordinate_; };
-  std::vector<double> GetVertexes() const noexcept { return vertexes_; };
-  std::vector<double> GetFacets() const noexcept { return facets_; };
+  std::vector<double>& GetVertexes() noexcept { return vertexes_; };
+  std::vector<double>& GetFacets() noexcept { return facets_; };
+  std::size_t GetCountOfVertex() const noexcept { return count_of_facets_; };
   bool IsValid() const noexcept { return is_valid_; };
   Model& operator()(std::string file);
 
  private:
   std::string filename_{};
   double max_coordinate_{};
+  std::size_t count_of_facets_{};
   std::vector<double> vertexes_{};
   std::vector<double> facets_{};
   bool is_valid_{};
