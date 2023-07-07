@@ -76,7 +76,7 @@ void Parcer::ReadVertexes(std::stringstream &ss) {
 // полигон выделяется х2 вершин.
 void Parcer::ReadFacets(std::stringstream &ss) {
   int count{};
-  double num_dbl{};
+  unsigned int num_dbl{};
   std::string substr, num, first;
   for (count = 0; ss >> substr; ++count) {
     for (auto it = substr.begin(); it != substr.end() && *it != '/'; ++it) {

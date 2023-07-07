@@ -16,7 +16,7 @@ class Parcer {
 
   double GetMaxCoordinate() const noexcept { return max_coordinate_; };
   std::vector<double> GetVertexes() const noexcept { return vertexes_; };
-  std::vector<double> GetFacets() const noexcept { return facets_; };
+  std::vector<unsigned int> GetFacets() const noexcept { return facets_; };
   std::size_t GetCountOfFacets() const noexcept { return count_of_facets_; }
   bool IsValid() const noexcept { return is_valid_; };
 
@@ -24,7 +24,7 @@ class Parcer {
   std::ifstream file_{};
   double max_coordinate_{};
   std::vector<double> vertexes_{};
-  std::vector<double> facets_{};
+  std::vector<unsigned int> facets_{};
   bool is_valid_{true};
   std::size_t count_of_facets_{};
 
