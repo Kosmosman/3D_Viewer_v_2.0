@@ -59,17 +59,17 @@ class GLWidget : public QOpenGLWidget {
 
  private:
   s21::Controller controller_;
-  QColor background_color_;
-  QColor edge_color_;
-  QColor dot_color_;
+  QColor background_color_{};
+  QColor edge_color_{};
+  QColor dot_color_{};
 
-  double max_coordinate_;
+  double max_coordinate_{};
 
-  int projection_mode_;
-  int point_mode_;
-  int point_size_;
-  int edge_mode_;
-  int edge_size_;
+  int projection_mode_{};
+  int point_mode_{};
+  int point_size_{};
+  int edge_mode_{};
+  int edge_size_{};
 
   int shift_prev_x_ = 0;
   int shift_prev_y_ = 0;

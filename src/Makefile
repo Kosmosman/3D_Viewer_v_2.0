@@ -80,6 +80,9 @@ valgrind: clean
 	${CC} $(CXXFLAGS) ${TEST_SRC} $(SRC) -o valgrind_test $(LIBS) $(LDFLAGS)
 	CK_FORK=no valgrind $(VALGRIND_FLAGS) --log-file=RESULT_VALGRIND.txt ./valgrind_test
 
+valgrind_app:
+	CK_FORK=no valgrind $(VALGRIND_FLAGS) --log-file=RESULT_VALGRIND.txt ./build/3DViewer
+
 clang:
 	cp ../materials/linters/.clang-format ../src/.clang-format
 	clang-format -style=Google -i *.cc ./controller/*.h ./Model/*/*.cc ./Model/*/*.h ./view/app/*.cc ./view/app/*.h

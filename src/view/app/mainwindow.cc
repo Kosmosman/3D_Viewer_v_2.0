@@ -420,8 +420,8 @@ void MainWindow::screenshotMaking() {
   QDateTime dateTime = dateTime.currentDateTime();
   QString currentDateTime = dateTime.toString("dd.MM.yy_HH.mm.ss_zzz");
   QString name_photo = dialogPhoto.getSaveFileName(
-      this, "Save as...", "Screenshot_" + currentDateTime,
-      "BMP (*.bmp);; JPEG (*.jpeg)");
+      this, "Save as...", "Screenshot_" + currentDateTime + ".jpg",
+      tr("Images (*.bmp *.jpg)"));
   ui_->OGLWidget->grabFramebuffer().save(name_photo);
 }
 
