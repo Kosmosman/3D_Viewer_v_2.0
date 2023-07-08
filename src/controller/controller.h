@@ -21,6 +21,7 @@ class Controller {
   unsigned int* Facets() { return model_.GetFacets().data(); };
   int CountOfFacets() { return model_.GetCountOfVertex(); };
   int CountOfVertexes() { return model_.GetVertexes().size() / 3; };
+  std::size_t PolygonSize() { return model_.GetPolygonSize(); };
 
   void MakeMoveX(int value) {
     AffinisOperation<MoveX> op;

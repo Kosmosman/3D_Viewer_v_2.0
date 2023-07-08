@@ -24,6 +24,7 @@ void Model::SetData() {
     vertexes_ = p.GetVertexes();
     facets_ = p.GetFacets();
     is_valid_ = p.IsValid();
+    polygon_size_ = p.GetPolygonSize();
   }
 }
 

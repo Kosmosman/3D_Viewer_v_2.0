@@ -79,7 +79,7 @@ void GLWidget::pointDrawing() {
     if (pointMode_ == 1) {
       glEnable(GL_POINT_SMOOTH);
     }
-    glDrawArrays(GL_POINTS, 1, controller_.CountOfVertexes());
+    glDrawArrays(GL_POINTS, 0, controller_.CountOfVertexes());
     if (pointMode_ == 1) {
       glDisable(GL_POINT_SMOOTH);
     }
@@ -92,7 +92,9 @@ void GLWidget::edgeDrawing() {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(2, 0x00F0);
   }
-  glDrawElements(GL_LINES, controller_.CountOfFacets(), GL_UNSIGNED_INT,
+  std::cout << "CountOfFacets: " << controller_.PolygonSize() << std::endl;
+
+  glDrawElements(GL_LINES, controller_.PolygonSize(), GL_UNSIGNED_INT,
                  controller_.Facets());
   if (edgeMode_ == 1) {
     glDisable(GL_LINE_STIPPLE);
@@ -104,7 +106,7 @@ void GLWidget::setupPerspective() {
     max_coordinate_ = 2;
   }
   GLdouble zNear = 0.001;  // Ближнее расстояние отсечения
-  GLdouble zFar = max_coordinate_ * 5;  // Дальнее расстояние отсечения
+  GLdouble zFar = max_coordinate_ * 10;  // Дальнее расстояние отсечения
 
   if (projectionMode_ == 0) {  // Central/Perspective projection
 
@@ -129,19 +131,19 @@ void GLWidget::setScale(int scale) {
 
 void GLWidget::setXTranslate(int value) {
   value -= 50;
-  controller_.MakeMoveX(0.05 * (value - a_prev_x));
+  controller_.MakeMoveX(value - a_prev_x);
   a_prev_x = value;
   update();
 }
 void GLWidget::setYTranslate(int value) {
   value -= 50;
-  controller_.MakeMoveY(0.05 * (value - a_prev_y));
+  controller_.MakeMoveY(value - a_prev_y);
   a_prev_y = value;
   update();
 }
 void GLWidget::setZTranslate(int value) {
   value -= 50;
-  controller_.MakeMoveZ(0.05 * (value - a_prev_z));
+  controller_.MakeMoveZ(value - a_prev_z);
   a_prev_z = value;
   update();
 }

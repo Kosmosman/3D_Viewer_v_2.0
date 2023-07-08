@@ -61,10 +61,8 @@ long Parcer::GetFileSize(std::string str) {
 void Parcer::ReadVertexes(std::stringstream& ss) {
   int count{};
   double num{};
-  std::string str;
-  for (count = 0; ss >> str; ++count) {
+  for (count = 0; ss >> num; ++count) {
     if (count > 2) is_valid_ = false;
-    num = std::stod(str);
     vertexes_.push_back(num);
     max_coordinate_ = fabs(num) > fabs(max_coordinate_) ? num : max_coordinate_;
   }
@@ -82,7 +80,7 @@ void Parcer::ReadFacets(std::stringstream& ss) {
     for (auto it = substr.begin(); it != substr.end() && *it != '/'; ++it) {
       num += *it;
     }
-    num_dbl = std::stoi(num);
+    num_dbl = std::stoi(num) - 1;
     facets_.push_back(num_dbl);
     if (count)
       facets_.push_back(num_dbl);
@@ -93,7 +91,8 @@ void Parcer::ReadFacets(std::stringstream& ss) {
   if (count < 2)
     is_valid_ = false;
   else
-    facets_.push_back(std::stoi(first));
+    facets_.push_back(std::stoi(first) - 1);
+  polygon_size_ += count * 2;
 };
 
 };  // namespace s21

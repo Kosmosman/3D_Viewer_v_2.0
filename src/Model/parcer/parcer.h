@@ -18,6 +18,7 @@ class Parcer {
   std::vector<double> GetVertexes() const noexcept { return vertexes_; };
   std::vector<unsigned int> GetFacets() const noexcept { return facets_; };
   std::size_t GetCountOfFacets() const noexcept { return count_of_facets_; }
+  std::size_t GetPolygonSize() const noexcept { return polygon_size_; };
   bool IsValid() const noexcept { return is_valid_; };
 
  private:
@@ -27,6 +28,7 @@ class Parcer {
   std::vector<unsigned int> facets_{};
   bool is_valid_{true};
   std::size_t count_of_facets_{};
+  std::size_t polygon_size_{};
 
   void Close() {
     if (file_.is_open()) file_.close();
