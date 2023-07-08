@@ -7,16 +7,14 @@ GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent) { initSettings(); }
 GLWidget::~GLWidget() {}
 
 void GLWidget::initSettings() {
-  angle_x_ = angle_y_ = 0;
-  shift_x = shift_y = 0;
-  projectionMode_ = 0;
-  pointSize_ = 3;
-  pointMode_ = 1;
-  edgeSize_ = 1;
-  edgeMode_ = 0;
-  backgroundColor_.setRgb(0, 0, 0);
-  edgeColor_.setRgb(255, 255, 255);
-  dotColor_.setRgb(255, 255, 255);
+  projection_mode_ = 0;
+  point_size_ = 3;
+  point_mode_ = 1;
+  edge_size_ = 1;
+  edge_mode_ = 0;
+  background_color_.setRgb(0, 0, 0);
+  edge_color_.setRgb(255, 255, 255);
+  dot_color_.setRgb(255, 255, 255);
 }
 
 void GLWidget::initializeGL() {
@@ -31,38 +29,13 @@ void GLWidget::resizeGL(int w, int h) {
 }
 
 void GLWidget::paintGL() {
-  glClearColor(backgroundColor_.redF(), backgroundColor_.greenF(),
-               backgroundColor_.blueF(), backgroundColor_.alphaF());
+  glClearColor(background_color_.redF(), background_color_.greenF(),
+               background_color_.blueF(), background_color_.alphaF());
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   setupPerspective();
   Drawing();
-}
-
-void GLWidget::mousePressEvent(QMouseEvent *event) {
-  if (event->buttons() == Qt::RightButton) {
-    m_mousePosition_ = event->pos();
-  }
-}
-void GLWidget::mouseMoveEvent(QMouseEvent *event) {
-  if (event->buttons() == Qt::RightButton) {
-    QPoint diff = event->pos() - m_mousePosition_;
-    angle_x_ += (1 / M_PI * (diff.y()));
-    angle_y_ += (1 / M_PI * (diff.x()));
-    m_mousePosition_ = event->pos();
-    setXRotation(angle_x_ + 180);
-    setYRotation(angle_y_ + 180);
-  } else if (event->buttons() == Qt::LeftButton) {
-    QPoint diff = event->pos() - m_mousePosition_;
-    shift_x += diff.x();
-    shift_y += diff.y();
-    m_mousePosition_ = event->pos();
-    setXTranslate(shift_x);
-    setYTranslate(-shift_y);
-  } else {
-    return;
-  }
 }
 
 void GLWidget::Drawing() {
@@ -73,29 +46,29 @@ void GLWidget::Drawing() {
   glDisableClientState(GL_VERTEX_ARRAY);
 }
 void GLWidget::pointDrawing() {
-  if (pointMode_ != 0) {
-    glColor3d(dotColor_.redF(), dotColor_.greenF(), dotColor_.blueF());
-    glPointSize(pointSize_);
-    if (pointMode_ == 1) {
+  if (point_mode_ != 0) {
+    glColor3d(dot_color_.redF(), dot_color_.greenF(), dot_color_.blueF());
+    glPointSize(point_size_);
+    if (point_mode_ == 1) {
       glEnable(GL_POINT_SMOOTH);
     }
     glDrawArrays(GL_POINTS, 0, controller_.CountOfVertexes());
-    if (pointMode_ == 1) {
+    if (point_mode_ == 1) {
       glDisable(GL_POINT_SMOOTH);
     }
   }
 }
 void GLWidget::edgeDrawing() {
-  glColor3d(edgeColor_.redF(), edgeColor_.greenF(), edgeColor_.blueF());
-  glLineWidth(edgeSize_);
-  if (edgeMode_ == 1) {
+  glColor3d(edge_color_.redF(), edge_color_.greenF(), edge_color_.blueF());
+  glLineWidth(edge_size_);
+  if (edge_mode_ == 1) {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(2, 0x00F0);
   }
 
   glDrawElements(GL_LINES, controller_.PolygonSize(), GL_UNSIGNED_INT,
                  controller_.Facets());
-  if (edgeMode_ == 1) {
+  if (edge_mode_ == 1) {
     glDisable(GL_LINE_STIPPLE);
   }
 }
@@ -107,7 +80,7 @@ void GLWidget::setupPerspective() {
   GLdouble zNear = 0.001;  // Ближнее расстояние отсечения
   GLdouble zFar = max_coordinate_ * 10;  // Дальнее расстояние отсечения
 
-  if (projectionMode_ == 0) {  // Central/Perspective projection
+  if (projection_mode_ == 0) {  // Central/Perspective projection
 
     GLdouble fovY = 90;  // Поле зрения в градусах по оси y
     GLdouble fH = tan(fovY / 360 * M_PI) * zNear;
@@ -124,49 +97,49 @@ void GLWidget::setupPerspective() {
 }
 
 void GLWidget::setScale(int scale) {
-  controller_.MakeScaling(static_cast<double>(scale) / prev_scale);
-  prev_scale = scale;
+  controller_.MakeScaling(static_cast<double>(scale) / prev_scale_);
+  prev_scale_ = scale;
   update();
 }
 
 void GLWidget::setXTranslate(int value) {
   value -= 50;
-  controller_.MakeMoveX(value - a_prev_x);
-  a_prev_x = value;
+  controller_.MakeMoveX(value - shift_prev_x_);
+  shift_prev_x_ = value;
   update();
 }
 
 void GLWidget::setYTranslate(int value) {
   value -= 50;
-  controller_.MakeMoveY(value - a_prev_y);
-  a_prev_y = value;
+  controller_.MakeMoveY(value - shift_prev_y_);
+  shift_prev_y_ = value;
   update();
 }
 
 void GLWidget::setZTranslate(int value) {
   value -= 50;
-  controller_.MakeMoveZ(value - a_prev_z);
-  a_prev_z = value;
+  controller_.MakeMoveZ(value - shift_prev_z_);
+  shift_prev_z_ = value;
   update();
 }
 
 void GLWidget::setXRotation(int angle) {
   angle -= 180;
-  controller_.MakeRotateX(angle - angle_prev_x);
-  angle_prev_x = angle;
+  controller_.MakeRotateX(angle - angle_prev_x_);
+  angle_prev_x_ = angle;
   update();
 }
 
 void GLWidget::setYRotation(int angle) {
   angle -= 180;
-  controller_.MakeRotateY(angle - angle_prev_y);
-  angle_prev_y = angle;
+  controller_.MakeRotateY(angle - angle_prev_y_);
+  angle_prev_y_ = angle;
   update();
 }
 
 void GLWidget::setZRotation(int angle) {
   angle -= 180;
-  controller_.MakeRotateZ(angle - angle_prev_z);
-  angle_prev_z = angle;
+  controller_.MakeRotateZ(angle - angle_prev_z_);
+  angle_prev_z_ = angle;
   update();
 }

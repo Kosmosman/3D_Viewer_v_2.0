@@ -30,19 +30,19 @@ class GLWidget : public QOpenGLWidget {
     max_coordinate_ = controller_.MaxCoordinate();
   };
 
-  QColor getBackgroundColor() { return backgroundColor_; }
-  QColor getEdgeColor() { return edgeColor_; }
-  QColor getDotColor() { return dotColor_; }
+  QColor getBackgroundColor() { return background_color_; }
+  QColor getEdgeColor() { return edge_color_; }
+  QColor getDotColor() { return dot_color_; }
 
-  void setBackgroundColor(QColor color) { backgroundColor_ = color; }
-  void setEdgeColor(QColor color) { edgeColor_ = color; }
-  void setDotColor(QColor color) { dotColor_ = color; }
+  void setBackgroundColor(QColor color) { background_color_ = color; }
+  void setEdgeColor(QColor color) { edge_color_ = color; }
+  void setDotColor(QColor color) { dot_color_ = color; }
 
-  void setProjectionMode(int mode) { projectionMode_ = mode; }
-  void setPointMode(int mode) { pointMode_ = mode; }
-  void setPointSize(int size) { pointSize_ = size; }
-  void setEdgeMode(int mode) { edgeMode_ = mode; }
-  void setEdgeSize(int size) { edgeSize_ = size; }
+  void setProjectionMode(int mode) { projection_mode_ = mode; }
+  void setPointMode(int mode) { point_mode_ = mode; }
+  void setPointSize(int size) { point_size_ = size; }
+  void setEdgeMode(int mode) { edge_mode_ = mode; }
+  void setEdgeSize(int size) { edge_size_ = size; }
 
   void initSettings();
 
@@ -59,31 +59,27 @@ class GLWidget : public QOpenGLWidget {
 
  private:
   s21::Controller controller_;
-  QColor backgroundColor_;
-  QColor edgeColor_;
-  QColor dotColor_;
+  QColor background_color_;
+  QColor edge_color_;
+  QColor dot_color_;
 
   double max_coordinate_;
 
-  int projectionMode_;
-  int pointMode_;
-  int pointSize_;
-  int edgeMode_;
-  int edgeSize_;
+  int projection_mode_;
+  int point_mode_;
+  int point_size_;
+  int edge_mode_;
+  int edge_size_;
 
-  int a_prev_x = 0;
-  int a_prev_y = 0;
-  int a_prev_z = 0;
+  int shift_prev_x_ = 0;
+  int shift_prev_y_ = 0;
+  int shift_prev_z_ = 0;
 
-  int angle_prev_x = 0;
-  int angle_prev_y = 0;
-  int angle_prev_z = 0;
+  int angle_prev_x_ = 0;
+  int angle_prev_y_ = 0;
+  int angle_prev_z_ = 0;
 
-  long double prev_scale = 50.0;
-
-  QPoint m_mousePosition_;
-  GLfloat shift_x, shift_y;
-  GLfloat angle_x_, angle_y_;
+  long double prev_scale_ = 50.0;
 
   void setupPerspective();
   void Drawing();
@@ -94,9 +90,6 @@ class GLWidget : public QOpenGLWidget {
   void initializeGL() override;
   void resizeGL(int w, int h) override;
   void paintGL() override;
-
-  void mousePressEvent(QMouseEvent *event) override;
-  void mouseMoveEvent(QMouseEvent *event) override;
 };
 
 #endif  // GLWIDGET_H
