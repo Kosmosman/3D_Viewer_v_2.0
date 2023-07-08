@@ -24,6 +24,7 @@ class GLWidget : public QOpenGLWidget {
 
   int GetCountOfFacets() { return controller_.CountOfFacets(); };
   int GetCountOfVertexes() { return controller_.CountOfVertexes(); };
+  void Reset() { controller_.Reset(); }
   void InitModel(std::string file) {
     controller_.InitModel(file);
     max_coordinate_ = controller_.MaxCoordinate();

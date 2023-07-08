@@ -21,7 +21,7 @@ void Model::SetData() {
   if (p.IsValid()) {
     max_coordinate_ = p.GetMaxCoordinate();
     count_of_facets_ = p.GetCountOfFacets();
-    vertexes_ = p.GetVertexes();
+    vertexes_ = start_vertexes_ = p.GetVertexes();
     facets_ = p.GetFacets();
     is_valid_ = p.IsValid();
     polygon_size_ = p.GetPolygonSize();

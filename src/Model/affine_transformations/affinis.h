@@ -62,8 +62,8 @@ class Scaling {
 template <class Operation>
 class AffinisOperation : public Operation {
  public:
-  void MakeCalculate(std::vector<double>& data, int change) {
-    this->Calculate(data, static_cast<long double>(change));
+  void MakeCalculate(std::vector<double>& data, long double change) {
+    this->Calculate(data, change);
   }
 };
 

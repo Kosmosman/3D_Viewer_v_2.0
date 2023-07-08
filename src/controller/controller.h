@@ -18,6 +18,7 @@ class Controller {
   void InitModel(std::string file) { model_(file); };
   double MaxCoordinate() { return model_.GetMaxCoordinate(); };
   double* Vertexes() { return model_.GetVertexes().data(); };
+  void Reset() { model_.BackToStartCoord(); };
   unsigned int* Facets() { return model_.GetFacets().data(); };
   int CountOfFacets() { return model_.GetCountOfVertex(); };
   int CountOfVertexes() { return model_.GetVertexes().size() / 3; };
@@ -47,7 +48,7 @@ class Controller {
     AffinisOperation<RotateZ> op;
     op.MakeCalculate(model_.GetVertexes(), value);
   };
-  void MakeScaling(int value) {
+  void MakeScaling(double value) {
     AffinisOperation<Scaling> op;
     op.MakeCalculate(model_.GetVertexes(), value);
   };

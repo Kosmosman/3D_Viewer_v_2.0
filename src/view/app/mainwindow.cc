@@ -305,20 +305,11 @@ void MainWindow::defaultScrollbars() {
 }
 void MainWindow::defaultSettings() {
   defaultScrollbars();
-
-  // Это что вообще такое? Типа загрузка дефолтного парсера?
-  //  for (int i = 0; ui_->OGLWidget->data.massiv &&
-  //                  i < (ui_->OGLWidget->data.count_of_vertexes + 1) * 3;
-  //       ++i) {
-  //    ui_->OGLWidget->data.massiv[i] = ui_->OGLWidget->data.massiv_const[i];
-  //  }
-
   ui_->type_of_projection_central_button->setChecked(true);
   ui_->verticies_circle_button->setChecked(true);
   ui_->edges_solid_button->setChecked(true);
-
   ui_->OGLWidget->initSettings();
-
+    ui_->OGLWidget->Reset();
   checkSettingsFile();
   updateUiColors();
 }

@@ -92,7 +92,6 @@ void GLWidget::edgeDrawing() {
     glEnable(GL_LINE_STIPPLE);
     glLineStipple(2, 0x00F0);
   }
-  std::cout << "CountOfFacets: " << controller_.PolygonSize() << std::endl;
 
   glDrawElements(GL_LINES, controller_.PolygonSize(), GL_UNSIGNED_INT,
                  controller_.Facets());
@@ -125,7 +124,8 @@ void GLWidget::setupPerspective() {
 }
 
 void GLWidget::setScale(int scale) {
-  controller_.MakeScaling(scale);
+  controller_.MakeScaling(static_cast<double>(scale) / prev_scale);
+  prev_scale = scale;
   update();
 }
 
@@ -135,12 +135,14 @@ void GLWidget::setXTranslate(int value) {
   a_prev_x = value;
   update();
 }
+
 void GLWidget::setYTranslate(int value) {
   value -= 50;
   controller_.MakeMoveY(value - a_prev_y);
   a_prev_y = value;
   update();
 }
+
 void GLWidget::setZTranslate(int value) {
   value -= 50;
   controller_.MakeMoveZ(value - a_prev_z);
@@ -154,12 +156,14 @@ void GLWidget::setXRotation(int angle) {
   angle_prev_x = angle;
   update();
 }
+
 void GLWidget::setYRotation(int angle) {
   angle -= 180;
   controller_.MakeRotateY(angle - angle_prev_y);
   angle_prev_y = angle;
   update();
 }
+
 void GLWidget::setZRotation(int angle) {
   angle -= 180;
   controller_.MakeRotateZ(angle - angle_prev_z);
