@@ -37,6 +37,7 @@ class Parcer {
   long GetFileSize(std::string str);
   void ReadVertexes(std::stringstream& ss);
   void ReadFacets(std::stringstream& ss);
+  void ResetValues();
 };
 
 };  // namespace s21

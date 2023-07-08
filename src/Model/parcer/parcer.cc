@@ -13,7 +13,6 @@ Parcer::Parcer(std::string str) {
   file_.open(str);
   if (file_.is_open()) {
     auto size = GetFileSize(str);
-    std::cout << "Size = " << size << std::endl;
     vertexes_.reserve(size / 3);
     facets_.reserve(size / 2);
     Parce();
@@ -30,7 +29,7 @@ Parcer::Parcer(std::string str) {
 // обработки исключений стоят для случаев некорретных данных в .obj файле.
 void Parcer::Parce() {
   std::string str;
-  while (getline(file_, str)) {
+  while (getline(file_, str) && is_valid_) {
     std::stringstream ss(str);
     ss >> str;
     try {
@@ -42,6 +41,7 @@ void Parcer::Parce() {
       }
     } catch (...) {
       is_valid_ = false;
+      ResetValues();
       std::cout << "Incorrect data" << std::endl;
     }
   }
@@ -66,7 +66,10 @@ void Parcer::ReadVertexes(std::stringstream& ss) {
     vertexes_.push_back(num);
     max_coordinate_ = fabs(num) > fabs(max_coordinate_) ? num : max_coordinate_;
   }
-  if (count < 3) is_valid_ = false;
+  if (count < 3) {
+      is_valid_ = false;
+      ResetValues();
+    }
 };
 
 // Считываем расположение грани. Строку подразбиваем на подстроки с номерами
@@ -88,11 +91,22 @@ void Parcer::ReadFacets(std::stringstream& ss) {
       first = num;
     num = "";
   }
-  if (count < 2)
-    is_valid_ = false;
-  else
-    facets_.push_back(std::stoi(first) - 1);
-  polygon_size_ += count * 2;
+  if (count < 2) {
+      is_valid_ = false;
+      ResetValues();
+  } else {
+      facets_.push_back(std::stoi(first) - 1);
+      polygon_size_ += count * 2;
+  }
 };
+
+void Parcer::ResetValues() {
+    max_coordinate_ = 0;
+    vertexes_.clear();
+    facets_.clear();
+    is_valid_ = false;
+    count_of_facets_ = 0;
+    polygon_size_ = 0;
+}
 
 };  // namespace s21

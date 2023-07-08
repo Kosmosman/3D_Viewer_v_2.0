@@ -11,7 +11,7 @@ VALGRIND_FLAGS=--trace-children=yes --track-fds=yes --track-origins=yes --leak-c
 
 SRC=./Model/**/*.cc
 
-TEST_SRC=./test.cc
+TEST_SRC=tests/test.cc
 
 OS := $(shell uname -s)
 USERNAME=$(shell whoami)
@@ -82,7 +82,7 @@ valgrind: clean
 
 clang:
 	cp ../materials/linters/.clang-format ../src/.clang-format
-	clang-format -style=Google -n *.cc ./controller/*.h ./Model/*/*.cc ./Model/*/*.h ./view/app/*.cc ./view/app/*.h
+	clang-format -style=Google -i *.cc ./controller/*.h ./Model/*/*.cc ./Model/*/*.h ./view/app/*.cc ./view/app/*.h
 	rm .clang-format
 
 

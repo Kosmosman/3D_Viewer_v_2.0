@@ -309,7 +309,7 @@ void MainWindow::defaultSettings() {
   ui_->verticies_circle_button->setChecked(true);
   ui_->edges_solid_button->setChecked(true);
   ui_->OGLWidget->initSettings();
-    ui_->OGLWidget->Reset();
+  ui_->OGLWidget->Reset();
   checkSettingsFile();
   updateUiColors();
 }

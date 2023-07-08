@@ -8,7 +8,6 @@
 namespace s21 {
 
 void MoveX::Calculate(std::vector<double>& data, long double change) {
-  std::cout << change << std::endl;
   for (auto i = data.begin(); i < data.end(); i += 3) *i += change;
 }
 
