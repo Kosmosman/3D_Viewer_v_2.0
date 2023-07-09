@@ -1,8 +1,5 @@
 #include <gtest/gtest.h>
 
-#include <string>
-#include <iostream>
-
 #include "../Model/parcer/parcer.h"
 #include "../Model/basic_model/model.h"
 #include "../Model/affine_transformations/affinis.h"
