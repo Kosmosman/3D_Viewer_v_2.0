@@ -67,9 +67,9 @@ void Parcer::ReadVertexes(std::stringstream& ss) {
     max_coordinate_ = fabs(num) > fabs(max_coordinate_) ? num : max_coordinate_;
   }
   if (count < 3) {
-      is_valid_ = false;
-      ResetValues();
-    }
+    is_valid_ = false;
+    ResetValues();
+  }
 };
 
 // Считываем расположение грани. Строку подразбиваем на подстроки с номерами
@@ -92,21 +92,21 @@ void Parcer::ReadFacets(std::stringstream& ss) {
     num = "";
   }
   if (count < 2) {
-      is_valid_ = false;
-      ResetValues();
+    is_valid_ = false;
+    ResetValues();
   } else {
-      facets_.push_back(std::stoi(first) - 1);
-      polygon_size_ += count * 2;
+    facets_.push_back(std::stoi(first) - 1);
+    polygon_size_ += count * 2;
   }
 };
 
 void Parcer::ResetValues() {
-    max_coordinate_ = 0;
-    vertexes_.clear();
-    facets_.clear();
-    is_valid_ = false;
-    count_of_facets_ = 0;
-    polygon_size_ = 0;
+  max_coordinate_ = 0;
+  vertexes_.clear();
+  facets_.clear();
+  is_valid_ = false;
+  count_of_facets_ = 0;
+  polygon_size_ = 0;
 }
 
 };  // namespace s21

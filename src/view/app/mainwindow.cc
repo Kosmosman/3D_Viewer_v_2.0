@@ -18,7 +18,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::initSetup() {
   setWindowTitle("3DViewer_v2.0");
-  this->settingFile_ = QApplication::applicationDirPath() + "/settings.conf";
+  this->setting_file_ = QApplication::applicationDirPath() + "/settings.conf";
 
   timer_ = new QTimer;
   gif_image_ = new QImage[50]{};
@@ -43,19 +43,19 @@ void MainWindow::initSetup() {
 }
 
 void MainWindow::translateScrollbarSetup() {
-  this->translateScrollbars_ = {ui_->scrollbar_translate_x,
-                                ui_->scrollbar_translate_y,
-                                ui_->scrollbar_translate_z};
-  this->translateLineEdits_ = {ui_->line_edit_translate_x,
-                               ui_->line_edit_translate_y,
-                               ui_->line_edit_translate_z};
+  this->translate_scrollbars_ = {ui_->scrollbar_translate_x,
+                                 ui_->scrollbar_translate_y,
+                                 ui_->scrollbar_translate_z};
+  this->translate_line_edits_ = {ui_->line_edit_translate_x,
+                                 ui_->line_edit_translate_y,
+                                 ui_->line_edit_translate_z};
 
-  for (auto &iterTranslate : this->translateScrollbars_) {
+  for (auto &iterTranslate : this->translate_scrollbars_) {
     iterTranslate->setRange(0, 100);
     connect(iterTranslate, &QScrollBar::valueChanged, (this),
             &MainWindow::translateScrollbarValueChanged);
   }
-  for (auto &iterTranslateLineEdits : this->translateLineEdits_) {
+  for (auto &iterTranslateLineEdits : this->translate_line_edits_) {
     connect(iterTranslateLineEdits, SIGNAL(editingFinished()), (this),
             SLOT(translateTextEdit()));
   }
@@ -93,18 +93,18 @@ void MainWindow::translateTextEdit() {
 }
 
 void MainWindow::rotateScrollbarSetup() {
-  this->rotateScrollbars_ = {ui_->scrollbar_rotate_x, ui_->scrollbar_rotate_y,
-                             ui_->scrollbar_rotate_z};
-  this->rotateLineEdits_ = {ui_->line_edit_rotate_x, ui_->line_edit_rotate_y,
-                            ui_->line_edit_rotate_z};
+  this->rotate_scrollbars_ = {ui_->scrollbar_rotate_x, ui_->scrollbar_rotate_y,
+                              ui_->scrollbar_rotate_z};
+  this->rotate_line_edits_ = {ui_->line_edit_rotate_x, ui_->line_edit_rotate_y,
+                              ui_->line_edit_rotate_z};
 
-  for (auto &iterRotate : this->rotateScrollbars_) {
+  for (auto &iterRotate : this->rotate_scrollbars_) {
     iterRotate->setRange(0, 360);
     iterRotate->setSingleStep(1);
     connect(iterRotate, &QScrollBar::valueChanged, (this),
             &MainWindow::rotateScrollbarValueChanged);
   }
-  for (auto &iterRotateLineEdits : this->rotateLineEdits_) {
+  for (auto &iterRotateLineEdits : this->rotate_line_edits_) {
     connect(iterRotateLineEdits, SIGNAL(editingFinished()), (this),
             SLOT(rotateTextEdit()));
   }
@@ -281,17 +281,17 @@ void MainWindow::updateUiColors() {
 }
 
 void MainWindow::defaultScrollbars() {
-  for (auto &iterTranslate : this->translateScrollbars_) {
+  for (auto &iterTranslate : this->translate_scrollbars_) {
     iterTranslate->setValue(50);
   }
-  for (auto &iterTranslateLineEdits : this->translateLineEdits_) {
+  for (auto &iterTranslateLineEdits : this->translate_line_edits_) {
     iterTranslateLineEdits->setText(QString::number(0));
   }
 
-  for (auto &iterRotate : this->rotateScrollbars_) {
+  for (auto &iterRotate : this->rotate_scrollbars_) {
     iterRotate->setValue(180);
   }
-  for (auto &iterRotateLineEdits : this->rotateLineEdits_) {
+  for (auto &iterRotateLineEdits : this->rotate_line_edits_) {
     iterRotateLineEdits->setText(QString::number(0));
   }
 
@@ -314,8 +314,8 @@ void MainWindow::defaultSettings() {
   updateUiColors();
 }
 void MainWindow::checkSettingsFile() {
-  if (QFile::exists(settingFile_)) {
-    QSettings settings(settingFile_, QSettings::IniFormat);
+  if (QFile::exists(setting_file_)) {
+    QSettings settings(setting_file_, QSettings::IniFormat);
 
     settings.beginGroup("LineSet");
     if (settings.value("solid").toBool()) {
@@ -356,7 +356,7 @@ void MainWindow::checkSettingsFile() {
   }
 }
 void MainWindow::saveSettings() {
-  QSettings settings(settingFile_, QSettings::IniFormat);
+  QSettings settings(setting_file_, QSettings::IniFormat);
 
   settings.beginGroup("LineSet");
   settings.setValue("solid", ui_->edges_solid_button->isChecked());
@@ -379,8 +379,8 @@ void MainWindow::saveSettings() {
 }
 
 void MainWindow::resetValue() {
-  if (QFile::exists(settingFile_)) {
-    QFile::remove(settingFile_);
+  if (QFile::exists(setting_file_)) {
+    QFile::remove(setting_file_);
   }
   defaultSettings();
   ui_->OGLWidget->update();

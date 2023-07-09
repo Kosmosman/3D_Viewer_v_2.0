@@ -1,5 +1,5 @@
-#ifndef GLWIDGET_H
-#define GLWIDGET_H
+#ifndef CPP_3D_VIEWER_V2_SRC_VIEW_APP_GLWIDGET_H
+#define CPP_3D_VIEWER_V2_SRC_VIEW_APP_GLWIDGET_H
 
 #define GL_SILENCE_DEPRECATION
 
@@ -91,4 +91,4 @@ class GLWidget : public QOpenGLWidget {
   void paintGL() override;
 };
 
-#endif  // GLWIDGET_H
+#endif  // CPP_3D_VIEWER_V2_SRC_VIEW_APP_GLWIDGET_H

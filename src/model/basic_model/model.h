@@ -1,9 +1,5 @@
-//
-// Created by Joaquina Daeron on 6/21/23.
-//
-
-#ifndef SRC_MODEL_H
-#define SRC_MODEL_H
+#ifndef CPP4_3D_VIEWER_V2_SRC_MODEL_BASIC_MODEL_MODEL_H
+#define CPP4_3D_VIEWER_V2_SRC_MODEL_BASIC_MODEL_MODEL_H
 
 #include <string>
 #include <vector>
@@ -38,4 +34,4 @@ class Model {
 
 }  // namespace s21
 
-#endif  // SRC_MODEL_H
+#endif  // CPP4_3D_VIEWER_V2_SRC_MODEL_BASIC_MODEL_MODEL_H

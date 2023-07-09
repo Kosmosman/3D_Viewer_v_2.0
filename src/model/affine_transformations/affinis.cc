@@ -1,9 +1,4 @@
-//
-// Created by Joaquina Daeron on 6/21/23.
-//
 #include "affinis.h"
-
-#include <iostream>
 
 namespace s21 {
 

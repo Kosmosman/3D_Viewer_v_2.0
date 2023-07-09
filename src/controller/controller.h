@@ -1,9 +1,5 @@
-//
-// Created by joaquind on 03.07.23.
-//
-
-#ifndef SRC_CONTROLLER_H
-#define SRC_CONTROLLER_H
+#ifndef CPP4_3D_VIEWER_V2_SRC_CONTROLLER_CONTROLLER_H
+#define CPP4_3D_VIEWER_V2_SRC_CONTROLLER_CONTROLLER_H
 
 #include <string>
 
@@ -59,4 +55,4 @@ class Controller {
 
 }  // namespace s21
 
-#endif  // SRC_CONTROLLER_H
+#endif  // CPP4_3D_VIEWER_V2_SRC_CONTROLLER_CONTROLLER_H

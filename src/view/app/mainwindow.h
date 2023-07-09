@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef CPP_3D_VIEWER_V2_SRC_VIEW_APP_MAINWINDOW_H
+#define CPP_3D_VIEWER_V2_SRC_VIEW_APP_MAINWINDOW_H
 
 #include <stdlib.h>
 
@@ -60,18 +60,18 @@ class MainWindow : public QMainWindow {
 
  private:
   Ui::MainWindow *ui_{};
-  QString settingFile_{};
+  QString setting_file_{};
 
   int gif_time_{};
   QTimer *timer_{};
   QGifImage *gif_{};
   QImage *gif_image_{};
 
-  QList<QScrollBar *> translateScrollbars_{};
-  QList<QLineEdit *> translateLineEdits_{};
+  QList<QScrollBar *> translate_scrollbars_{};
+  QList<QLineEdit *> translate_line_edits_{};
 
-  QList<QScrollBar *> rotateScrollbars_{};
-  QList<QLineEdit *> rotateLineEdits_{};
+  QList<QScrollBar *> rotate_scrollbars_{};
+  QList<QLineEdit *> rotate_line_edits_{};
 
   void initSetup();
 
@@ -89,4 +89,4 @@ class MainWindow : public QMainWindow {
   void checkSettingsFile();
   void saveSettings();
 };
-#endif  // MAINWINDOW_H
+#endif  // CPP_3D_VIEWER_V2_SRC_VIEW_APP_MAINWINDOW_H

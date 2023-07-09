@@ -1,5 +1,5 @@
-#ifndef CPP_3D_VIEWER_V2_SRC_MODEL_PARCER_H_
-#define CPP_3D_VIEWER_V2_SRC_MODEL_PARCER_H_
+#ifndef CPP_3D_VIEWER_V2_SRC_MODEL_PARCER_PARCER_H_
+#define CPP_3D_VIEWER_V2_SRC_MODEL_PARCER_PARCER_H_
 
 #include <fstream>
 #include <sstream>
@@ -42,4 +42,4 @@ class Parcer {
 
 };  // namespace s21
 
-#endif  // CPP_3D_VIEWER_V2_SRC_MODEL_PARCER_H_
+#endif  // CPP_3D_VIEWER_V2_SRC_MODEL_PARCER_PARCER_H_

@@ -85,7 +85,7 @@ valgrind_app:
 
 clang:
 	cp ../materials/linters/.clang-format ../src/.clang-format
-	clang-format -style=Google -i *.cc ./controller/*.h ./Model/*/*.cc ./Model/*/*.h ./view/app/*.cc ./view/app/*.h
+	clang-format -style=Google -n *.cc ./controller/*.h ./Model/*/*.cc ./Model/*/*.h ./view/app/*.cc ./view/app/*.h
 	rm .clang-format
 
 

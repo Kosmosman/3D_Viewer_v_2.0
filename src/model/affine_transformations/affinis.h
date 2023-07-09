@@ -1,9 +1,5 @@
-//
-// Created by Joaquina Daeron on 6/21/23.
-//
-
-#ifndef SRC_AFFINIS_H
-#define SRC_AFFINIS_H
+#ifndef CPP4_3D_VIEWER_V2_SRC_MODEL_AFFINE_TRANSFORMATION_AFFINIS_H
+#define CPP4_3D_VIEWER_V2_SRC_MODEL_AFFINE_TRANSFORMATION_AFFINIS_H
 
 #include <cmath>
 #include <utility>
@@ -69,4 +65,4 @@ class AffinisOperation : public Operation {
 
 }  // namespace s21
 
-#endif  // SRC_AFFINIS_H
+#endif  // CPP4_3D_VIEWER_V2_SRC_MODEL_AFFINE_TRANSFORMATION_AFFINIS_H
