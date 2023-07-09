@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow() {
   saveSettings();
   delete timer_;
-  delete[] gifImage_;
+  delete[] gif_image_;
   delete ui_;
 }
 
@@ -21,7 +21,7 @@ void MainWindow::initSetup() {
   this->settingFile_ = QApplication::applicationDirPath() + "/settings.conf";
 
   timer_ = new QTimer;
-  gifImage_ = new QImage[50]{};
+  gif_image_ = new QImage[50]{};
   connect(timer_, SIGNAL(timeout()), this, SLOT(slotTimer()));
 
   translateScrollbarSetup();
@@ -387,20 +387,20 @@ void MainWindow::resetValue() {
 }
 
 void MainWindow::fileHandling() {
-  QFileDialog *fileDialog = new QFileDialog(this);
-  if (fileDialog) {
-    fileDialog->setWindowTitle(tr("Choose .obj-file"));
-    fileDialog->setNameFilter(tr("(*.obj)"));
-    fileDialog->setViewMode(QFileDialog::Detail);
-    fileDialog->setFileMode(QFileDialog::ExistingFile);
-    QStringList fileNames;
-    if (fileDialog->exec()) {
-      fileNames = fileDialog->selectedFiles();
-      if (fileNames.size() > 0) {
-        QString fileName = fileNames.at(0);
-        ui_->OGLWidget->InitModel(fileName.toStdString());
-        setWindowTitle(fileName);
-        ui_->statusBar->showMessage("Path: " + fileName);
+  QFileDialog *file_dialog = new QFileDialog(this);
+  if (file_dialog) {
+    file_dialog->setWindowTitle(tr("Choose .obj-file"));
+    file_dialog->setNameFilter(tr("(*.obj)"));
+    file_dialog->setViewMode(QFileDialog::Detail);
+    file_dialog->setFileMode(QFileDialog::ExistingFile);
+    QStringList file_names;
+    if (file_dialog->exec()) {
+      file_names = file_dialog->selectedFiles();
+      if (file_names.size() > 0) {
+        QString file_name = file_names.at(0);
+        ui_->OGLWidget->InitModel(file_name.toStdString());
+        setWindowTitle(file_name);
+        ui_->statusBar->showMessage("Path: " + file_name);
         ui_->number_of_facets->setText(
             QString::number(ui_->OGLWidget->GetCountOfFacets()));
         ui_->number_of_vertices->setText(
@@ -408,17 +408,17 @@ void MainWindow::fileHandling() {
         defaultScrollbars();
       }
     }
-    delete fileDialog;
   } else {
     printf("error!\n");
   }
+  delete file_dialog;
 }
 
 void MainWindow::screenshotMaking() {
   saveSettings();
   QFileDialog dialogPhoto(this);
-  QDateTime dateTime = dateTime.currentDateTime();
-  QString currentDateTime = dateTime.toString("dd.MM.yy_HH.mm.ss_zzz");
+  QDateTime date_time = date_time.currentDateTime();
+  QString currentDateTime = date_time.toString("dd.MM.yy_HH.mm.ss_zzz");
   QString name_photo = dialogPhoto.getSaveFileName(
       this, "Save as...", "Screenshot_" + currentDateTime + ".jpg",
       tr("Images (*.bmp *.jpg)"));
@@ -432,23 +432,23 @@ void MainWindow::gifMaking() {
 }
 
 void MainWindow::slotTimer() {
-  if (gifTime_ < 50) {
-    gifImage_[gifTime_] = ui_->OGLWidget->grab().toImage();
-    ++gifTime_;
+  if (gif_time_ < 50) {
+    gif_image_[gif_time_] = ui_->OGLWidget->grab().toImage();
+    ++gif_time_;
   } else {
     gif_ = new QGifImage;
 
-    for (int i = 0; i < gifTime_; ++i) {
-      gif_->addFrame(gifImage_[i], 0);
+    for (int i = 0; i < gif_time_; ++i) {
+      gif_->addFrame(gif_image_[i], 0);
     }
-    QDateTime dateTime = dateTime.currentDateTime();
-    QString currentDateTime = dateTime.toString("dd_MM_yy_HH_mm_ss_zzz");
-    QString fileName = QFileDialog::getSaveFileName(
-        this, "Save GIF", "GIF_" + currentDateTime, "GIF (*.gif)");
-    gif_->save(fileName);
+    QDateTime date_time = date_time.currentDateTime();
+    QString current_date_time = date_time.toString("dd_MM_yy_HH_mm_ss_zzz");
+    QString file_name = QFileDialog::getSaveFileName(
+        this, "Save GIF", "GIF_" + current_date_time, "GIF (*.gif)");
+    gif_->save(file_name);
     ui_->gif_button->setEnabled(true);
     timer_->stop();
     delete gif_;
-    gifTime_ = 0;
+    gif_time_ = 0;
   }
 }

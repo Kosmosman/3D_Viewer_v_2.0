@@ -9,7 +9,7 @@ TEST_FLAGS:=-g#-fsanitize=address -O1 -fno-omit-frame-pointer
 GCOV_FLAGS?=--coverage#-fprofile-arcs -ftest-coverage
 VALGRIND_FLAGS=--trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all --verbose
 
-SRC=./Model/**/*.cc
+SRC=./model/**/*.cc
 
 TEST_SRC=tests/test.cc
 

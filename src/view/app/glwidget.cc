@@ -1,7 +1,5 @@
 #include "glwidget.h"
 
-#include <iostream>
-
 GLWidget::GLWidget(QWidget *parent) : QOpenGLWidget(parent) { initSettings(); }
 
 GLWidget::~GLWidget() {}
@@ -77,27 +75,27 @@ void GLWidget::setupPerspective() {
   if (max_coordinate_ < 1) {
     max_coordinate_ = 2;
   }
-  GLdouble zNear = 0.001;  // Ближнее расстояние отсечения
-  GLdouble zFar = max_coordinate_ * 10;  // Дальнее расстояние отсечения
+  GLdouble z_near = 0.001;  // Ближнее расстояние отсечения
+  GLdouble z_far = max_coordinate_ * 10;  // Дальнее расстояние отсечения
 
   if (projection_mode_ == 0) {  // Central/Perspective projection
 
-    GLdouble fovY = 90;  // Поле зрения в градусах по оси y
-    GLdouble fH = tan(fovY / 360 * M_PI) * zNear;
+    GLdouble fov_y = 90;  // Поле зрения в градусах по оси y
+    GLdouble fH = tan(fov_y / 360 * M_PI) * z_near;
     GLdouble fW = fH;
 
-    glFrustum(-fW, fW, -fH, fH, zNear,
-              zFar);  // Устанавливает усеченный конус в режим перспективы
+    glFrustum(-fW, fW, -fH, fH, z_near,
+              z_far);  // Устанавливает усеченный конус в режим перспективы
     glTranslatef(0, 0, -max_coordinate_);
   } else {  // Parallel/Orthographic projection
     glOrtho(-max_coordinate_, max_coordinate_, -max_coordinate_,
-            max_coordinate_, -max_coordinate_, zFar);
+            max_coordinate_, -max_coordinate_, z_far);
   }
   glTranslated(0, 0, -3);
 }
 
 void GLWidget::setScale(int scale) {
-  controller_.MakeScaling(static_cast<double>(scale) / prev_scale_);
+  controller_.MakeScaling(static_cast<long double>(scale) / prev_scale_);
   prev_scale_ = scale;
   update();
 }

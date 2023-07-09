@@ -32,10 +32,7 @@ class MainWindow : public QMainWindow {
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
 
- public slots:
-
  private slots:
-
   void translateScrollbarValueChanged(int value);
   void translateTextEdit();
 
@@ -62,19 +59,19 @@ class MainWindow : public QMainWindow {
   void slotTimer();
 
  private:
-  Ui::MainWindow *ui_;
-  QString settingFile_;
+  Ui::MainWindow *ui_{};
+  QString settingFile_{};
 
-  int gifTime_ = 0;
-  QTimer *timer_;
-  QGifImage *gif_;
-  QImage *gifImage_;
+  int gif_time_{};
+  QTimer *timer_{};
+  QGifImage *gif_{};
+  QImage *gif_image_{};
 
-  QList<QScrollBar *> translateScrollbars_;
-  QList<QLineEdit *> translateLineEdits_;
+  QList<QScrollBar *> translateScrollbars_{};
+  QList<QLineEdit *> translateLineEdits_{};
 
-  QList<QScrollBar *> rotateScrollbars_;
-  QList<QLineEdit *> rotateLineEdits_;
+  QList<QScrollBar *> rotateScrollbars_{};
+  QList<QLineEdit *> rotateLineEdits_{};
 
   void initSetup();
 

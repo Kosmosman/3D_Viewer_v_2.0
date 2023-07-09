@@ -14,8 +14,6 @@
 
 #include "../../controller/controller.h"
 
-using namespace std;
-
 class GLWidget : public QOpenGLWidget {
   Q_OBJECT
  public:
@@ -59,6 +57,7 @@ class GLWidget : public QOpenGLWidget {
 
  private:
   s21::Controller controller_;
+
   QColor background_color_{};
   QColor edge_color_{};
   QColor dot_color_{};
@@ -71,13 +70,13 @@ class GLWidget : public QOpenGLWidget {
   int edge_mode_{};
   int edge_size_{};
 
-  int shift_prev_x_ = 0;
-  int shift_prev_y_ = 0;
-  int shift_prev_z_ = 0;
+  int shift_prev_x_{};
+  int shift_prev_y_{};
+  int shift_prev_z_{};
 
-  int angle_prev_x_ = 0;
-  int angle_prev_y_ = 0;
-  int angle_prev_z_ = 0;
+  int angle_prev_x_{};
+  int angle_prev_y_{};
+  int angle_prev_z_{};
 
   long double prev_scale_ = 50.0;
 

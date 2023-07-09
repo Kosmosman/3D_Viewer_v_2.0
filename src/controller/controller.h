@@ -7,8 +7,8 @@
 
 #include <string>
 
-#include "../Model/affine_transformations/affinis.h"
-#include "../Model/basic_model/model.h"
+#include "../model/affine_transformations/affinis.h"
+#include "../model/basic_model/model.h"
 
 namespace s21 {
 
