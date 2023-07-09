@@ -8,7 +8,7 @@
 #include "../Model/affine_transformations/affinis.h"
 
 TEST(ParcerTest, BasicTest) {
-  std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/obj/cube.obj";
+  std::string filename = "tests/test_obj/cube_test.obj";
   s21::Parcer parcer_(filename);
     EXPECT_TRUE(parcer_.IsValid());
   EXPECT_EQ(parcer_.GetVertexes().size() / 3, 24);
@@ -17,19 +17,19 @@ TEST(ParcerTest, BasicTest) {
 }
 
 TEST(ParcerTest, WrongTestOne) {
-  std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/obj/pyramid.obj";
+  std::string filename = "tests/test_obj/pyramid.obj";
   s21::Parcer parcer_(filename);
     EXPECT_FALSE(parcer_.IsValid());
 }
 
 TEST(ParcerTest, WrongTestTwo) {
-    std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/obj/wrong.obj";
+    std::string filename = "tests/test_obj/wrong_test.obj";
     s21::Parcer parcer_(filename);
     EXPECT_FALSE(parcer_.IsValid());
 }
 
 TEST(AffinesTest, MoveCoordX) {
-    std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/tests/test_obj/1.obj";
+    std::string filename = "tests/test_obj/1.obj";
     s21::Model mod(filename);
     s21::AffinisOperation<s21::MoveX> op;
     double eq[9]{2, 0, 0, 1, 1, 0, 1, 0, 1};
@@ -42,7 +42,7 @@ TEST(AffinesTest, MoveCoordX) {
 }
 
 TEST(AffinesTest, MoveCoordY) {
-    std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/tests/test_obj/1.obj";
+    std::string filename = "tests/test_obj/1.obj";
     s21::Model mod(filename);
     s21::AffinisOperation<s21::MoveY> op;
     double eq[9]{1, 1, 0, 0, 2, 0, 0, 1, 1};
@@ -55,7 +55,7 @@ TEST(AffinesTest, MoveCoordY) {
 }
 
 TEST(AffinesTest, MoveCoordZ) {
-    std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/tests/test_obj/1.obj";
+    std::string filename = "tests/test_obj/1.obj";
     s21::Model mod(filename);
     s21::AffinisOperation<s21::MoveZ> op;
     double eq[9]{1, 0, 1, 0, 1, 1, 0, 0, 2};
@@ -68,7 +68,7 @@ TEST(AffinesTest, MoveCoordZ) {
 }
 
 TEST(AffinesTest, RotateCoordX) {
-    std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/tests/test_obj/2.obj";
+    std::string filename = "tests/test_obj/2.obj";
     s21::Model mod(filename);
     s21::AffinisOperation<s21::RotateX> op;
     double eq[9]{1, 1, -1, 2, 2, -2, 3, 3, -3};
@@ -89,7 +89,7 @@ TEST(AffinesTest, RotateCoordX) {
 }
 
 TEST(AffinesTest, RotateCoordY) {
-    std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/tests/test_obj/2.obj";
+    std::string filename = "tests/test_obj/2.obj";
     s21::Model mod(filename);
     s21::AffinisOperation<s21::RotateY> op;
     double eq[9]{1, 1, -1, 2, 2, -2, 3, 3, -3};
@@ -110,7 +110,7 @@ TEST(AffinesTest, RotateCoordY) {
 }
 
 TEST(AffinesTest, RotateCoordZ) {
-    std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/tests/test_obj/2.obj";
+    std::string filename = "tests/test_obj/2.obj";
     s21::Model mod(filename);
     s21::AffinisOperation<s21::RotateZ> op;
     double eq[9]{-1, 1, 1, -2, 2, 2, -3, 3, 3};
@@ -131,7 +131,7 @@ TEST(AffinesTest, RotateCoordZ) {
 }
 
 TEST(AffinesTest, Scaling) {
-    std::string filename = "/opt/goinfre/joaquind/CPP4_3DViewer_v2.0-1/src/tests/test_obj/2.obj";
+    std::string filename = "tests/test_obj/2.obj";
     s21::Model mod(filename);
     s21::AffinisOperation<s21::Scaling> op;
     double eq[9]{2, 2, 2, 4, 4, 4, 6, 6, 6};
